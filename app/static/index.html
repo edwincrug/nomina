@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Portal de Timbrado</title>
+    <meta name="description" content="description project">
+    <meta name="author" content="name" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Hojas de estilos-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/toastr.css" rel="stylesheet" />
+    <link href="css/custom-style.css" rel="stylesheet" />
+    <link href="datatables.min.css" rel="stylesheet" />
+    <!--js-->
+    <script src="js/libs/jQuery/jquery-2.1.4.min.js"></script>
+    <script src="js/libs/bootstrap/bootstrap.js"></script>
+    <link href="css/navBar.css" rel="stylesheet" />
+</head>
+
+<body ng-app="registrationModule" style="background:#EAEAEA">
+    <div id="pnlSideNav" class="sidenav">
+        <div class="pnlSideTitleMin">GA</div>
+        <div id="mainnav-profile">
+            <div class="profile-wrap" id="divUserSession">
+                <div class="pad-btm">
+                </div>
+                <div class="main">
+                    <input type="hidden" id="lgnUser" value="[[ user.idUsuario ]]">
+                </div>
+                <br/>
+            </div>
+        </div>
+        <a href="/" title="Referencias" style="font-family:Helvetica;">
+            <i class="glyphicon glyphicon-list-alt"></i>
+            <span class="menu-title">
+                <strong>Timbrado</strong>
+            </span>
+        </a>
+    </div>
+    <div id="pnlMain">
+        <div class="panelTopBar">
+            <div class="pnlBodyBar">
+                <button type="button" class="btn btn-default" onclick="openCloseNav()"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                <strong>PORTAL DE TIMBRADO</strong>
+            </div>
+            <div class="pnlBodyBar pull-right">
+                <ul class="nav navbar-nav navbar-right" style="margin-top: -8px; padding:0px 5px 10px">
+                    <li><a href="" style="color:#333333; font-family:Helvetica;"> {{empleado[0].nombre}}</a></li>
+                    <li><a href="" style="color:#333333"><span class="glyphicon glyphicon-user"> </span></a></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <div ng-view></div>
+    </div>
+    <!--Interface de usuario-->
+    <script src="js/libs/toastr/toastr.min.js"></script>
+    <!-- Librerias Angular-->
+    <script src="js/libs/angular/angular.min.js"></script>
+    <script src="js/libs/angular/angular-route.min.js"></script>
+    <script src="js/libs/angular/angular-local-storage.min.js"></script>
+    <script src="js/libs/navBar.js"></script>
+    <!--Funciones Comunes-->
+    <script src="confront.js"></script>
+    <script src="helpers.js"></script>
+    <!--Librerias de aplicación angular-->
+    <script src="AngularJS/registrationModule.js"></script>
+    <!--librerias de componenetes-->
+    <script src="AngularJS/alertFactory.js"></script>
+    <!--Controllers-->
+    <script src="AngularJS/Reference/referenceController.js"></script>
+    <script src="AngularJS/Reference/referenceRepository.js"></script>
+</body>
+
+</html>
