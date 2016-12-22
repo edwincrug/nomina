@@ -1,5 +1,32 @@
 <div ng-init="init()">
-    <div id="page-title">
-        <h3>Timbrado</h3>
+    <div class="ibox float-e-margins">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Grupo:</label>
+                        <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                            <option value="">Seleccioné Grupo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Empresa:</label>
+                        <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                            <option value="">Seleccioné Empresa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Agencia:</label>
+                        <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                            <option value="">Seleccioné Agencia</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
