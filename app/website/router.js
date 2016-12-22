@@ -1,3 +1,3 @@
  module.exports = {
-     reference: require('./controllers/reference')
+     busqueda: require('./controllers/busqueda')
  }

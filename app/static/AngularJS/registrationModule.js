@@ -10,8 +10,8 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
 
         /*cheange the routes*/
          $routeProvider.when('/', {
-            templateUrl: 'AngularJS/Templates/referencefactura.html', //example 1
-            controller: 'referenceController'
+            templateUrl: 'AngularJS/Templates/busqueda.html', //example 1
+            controller: 'busquedaController'
         });
 
         $locationProvider.html5Mode({

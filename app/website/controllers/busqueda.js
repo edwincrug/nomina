@@ -1,5 +1,5 @@
-var ReferenceView = require('../views/reference'),
-    ReferenceModel = require('../models/dataAccess'),
+var BusquedaView = require('../views/reference'),
+    BusquedaModel = require('../models/dataAccess'),
     moment = require('moment');
 var phantom = require('phantom');
 var path = require('path');
@@ -7,11 +7,11 @@ var webPage = require('webpage');
 var request = require('request');
 
 
-var Reference = function (conf) {
+var Busqueda = function (conf) {
     this.conf = conf || {};
 
-    this.view = new ReferenceView();
-    this.model = new ReferenceModel({
+    this.view = new BusquedaView();
+    this.model = new BusquedaModel({
         parameters: this.conf.parameters
     });
 
@@ -21,7 +21,7 @@ var Reference = function (conf) {
 };
 
 
-Reference.prototype.get_facturasAll = function (req, res, next) {
+Busqueda.prototype.get_facturasAll = function (req, res, next) {
 
     var self = this;
 
@@ -35,5 +35,5 @@ Reference.prototype.get_facturasAll = function (req, res, next) {
     });
 };
 
-module.exports = Reference;
+module.exports = Busqueda;
 
