@@ -9,7 +9,11 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","LocalS
     .config(function($routeProvider, $locationProvider) {
 
         /*cheange the routes*/
-         $routeProvider.when('/', {
+        $routeProvider.when('/timbrado', {
+            templateUrl: 'AngularJS/Templates/timbrado.html', //example 1
+            controller: 'timbradoController'
+        });
+         $routeProvider.when('/busqueda', {
             templateUrl: 'AngularJS/Templates/busqueda.html', //example 1
             controller: 'busquedaController'
         });
