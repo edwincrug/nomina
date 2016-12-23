@@ -34,5 +34,32 @@ Filtros.prototype.get_empresa = function (req, res, next) {
         });
     });
 };
+Filtros.prototype.get_agencia = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idEmpresa',value: req.query.idEmpresa ,type: self.model.types.INT}];
+
+    this.model.query('SEL_SUCURSALES_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+Filtros.prototype.get_departamento = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idEmpresa',value: req.query.idEmpresa ,type: self.model.types.INT},
+                  {name: 'idSucursal ',value: req.query.idSucursal  ,type: self.model.types.INT}  ];
+
+    this.model.query('SEL_DEPARTAMENTOS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
 
 module.exports = Filtros;
