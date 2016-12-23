@@ -27,15 +27,15 @@
         filtrosRepository.getAgencia(idempresa).then(function(result) {
             if (result.data.length > 0) {
                 $scope.agencias = result.data;
-                console.log($scope.agencias);
+                //console.log($scope.agencias);
             }
         });
     }
     $scope.cargaTipoDepartamento = function(idempresa,idsucursal){
-        filtrosRepository.getAgencia(idempresa).then(function(result) {
+        filtrosRepository.getDepartamento(idempresa,idsucursal).then(function(result) {
             if (result.data.length > 0) {
                 $scope.departamento = result.data;
-                console.log($scope.agencias);
+                console.log($scope.departamento);
             }
         });
     }

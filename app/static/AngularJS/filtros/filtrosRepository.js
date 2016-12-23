@@ -28,6 +28,20 @@ registrationModule.factory('filtrosRepository', function($http) {
                 }
 
             });
+        },
+        getDepartamento: function(idempresa, idsucursal) {
+            return $http({
+                url: filtroURL + 'departamento/',
+                method: "GET",
+                params: {
+                    idEmpresa: idempresa,
+                    idSucursal: idsucursal
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
         }
       
     };
