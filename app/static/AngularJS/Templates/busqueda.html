@@ -22,7 +22,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Agencia:</label>
-                        <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                        <select class="form-control" ng-model="tipoEmpresa.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(tipoEmpresa.idTipoEmpresa,tipoEmpresa.idSucursal)">
                             <option value="">Seleccioné Agencia</option>
                         </select>
                     </div>

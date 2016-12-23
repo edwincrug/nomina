@@ -31,4 +31,12 @@
             }
         });
     }
+    $scope.cargaTipoDepartamento = function(idempresa,idsucursal){
+        filtrosRepository.getAgencia(idempresa).then(function(result) {
+            if (result.data.length > 0) {
+                $scope.departamento = result.data;
+                console.log($scope.agencias);
+            }
+        });
+    }
 });
