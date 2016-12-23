@@ -131,7 +131,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.getEmpresa = function(idUsuario){
     	filtrosRepository.getEmpresa(idUsuario).then(function(result) {
             if (result.data.length > 0) {
-            	$scope.empresasUsuario = result.data;
+            	$scope.empresaUsuario = result.data;
             }
     });
 

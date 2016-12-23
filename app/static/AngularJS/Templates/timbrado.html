@@ -8,9 +8,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Empresa:</label>
-                            <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                            <select class="form-control" ng-model="tipoEmpresa.idTipoEmpresa" ng-options="empresa.idEmpresa as empresa.nombreEmpresa for empresa in empresaUsuario" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
                                 <option value="">Seleccioné Empresa</option>
                             </select>
+                            {{empresaUsuario[0].idEmpresa}}
                         </div>
                     </div>
                     <div class="col-md-4">
