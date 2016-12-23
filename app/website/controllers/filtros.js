@@ -21,13 +21,13 @@ var Filtros = function (conf) {
 };
 
 
-Filtros.prototype.get_facturasAll = function (req, res, next) {
+Filtros.prototype.get_empresa = function (req, res, next) {
 
     var self = this;
 
-    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT}];
+    var params = [{name: 'idUsuario',value: req.query.idUsuario,type: self.model.types.INT}];
 
-    this.model.query('SEL_TOTAL_FACTURAS_TODOS_SP', params, function (error, result) {
+    this.model.query('SEL_EMPRESAS_SP', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
             result: result
