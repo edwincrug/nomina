@@ -1,5 +1,105 @@
 <div ng-init="init()">
     <div id="page-title">
-        <h3>timbrado 2 </h3>
+        <!-- <div id="page-content">
+            <div class="panel"> -->
+        <div class="ibox float-e-margins">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Empresa:</label>
+                            <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                                <option value="">Seleccioné Empresa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Tipo Nómina:</label>
+                            <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                                <option value="">Seleccioné Tipo Nómina</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 8px">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Arbol de Carpetas <small>Tipos de nómina</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="jstree1">
+                                <ul>
+                                    <li class="jstree-open">Nomina
+                                        <ul>
+                                            <li>css
+                                                <ul>
+                                                    <li data-jstree='"type":"css"}'>animate.css</li>
+                                                    <li data-jstree='"type":"css"}'>bootstrap.css</li>
+                                                    <li data-jstree='"type":"css"}'>style.css</li>
+                                                </ul>
+                                            </li>
+                                            <li>email-templates
+                                                <ul>
+                                                    <li data-jstree='"type":"html"}'>action.html</li>
+                                                    <li data-jstree='"type":"html"}'>alert.html</li>
+                                                    <li data-jstree='"type":"html"}'>billing.html</li>
+                                                </ul>
+                                            </li>
+                                            <li>fonts
+                                                <ul>
+                                                    <li data-jstree='"type":"svg"}'>glyphicons-halflings-regular.eot</li>
+                                                    <li data-jstree='"type":"svg"}'>glyphicons-halflings-regular.svg</li>
+                                                    <li data-jstree='"type":"svg"}'>glyphicons-halflings-regular.ttf</li>
+                                                    <li data-jstree='"type":"svg"}'>glyphicons-halflings-regular.woff</li>
+                                                </ul>
+                                            </li>
+                                            <li class="jstree-open">img
+                                                <ul>
+                                                    <li data-jstree='"type":"img"}'>profile_small.jpg</li>
+                                                    <li data-jstree='"type":"img"}'>angular_logo.png</li>
+                                                    <li class="text-navy" data-jstree='"type":"img"}'>html_logo.png</li>
+                                                    <li class="text-navy" data-jstree='"type":"img"}'>mvc_logo.png</li>
+                                                </ul>
+                                            </li>
+                                            <li class="jstree-open">js
+                                                <ul>
+                                                    <li data-jstree='"type":"js"}'>inspinia.js</li>
+                                                    <li data-jstree='"type":"js"}'>bootstrap.js</li>
+                                                    <li data-jstree='"type":"js"}'>jquery-2.1.1.js</li>
+                                                    <li data-jstree='"type":"js"}'>jquery-ui.custom.min.js</li>
+                                                    <li class="text-navy" data-jstree='"type":"js"}'>jquery-ui-1.10.4.min.js</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- /div>
+    </div> -->
 </div>
+<style>
+.jstree-open > .jstree-anchor > .fa-folder:before {
+    content: "\f07c";
+}
+
+.jstree-default .jstree-icon.none {
+    width: 0;
+}
+</style>
