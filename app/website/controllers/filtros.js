@@ -61,5 +61,19 @@ Filtros.prototype.get_departamento = function (req, res, next) {
         });
     });
 };
+//[]
+Filtros.prototype.get_tipoNomina = function (req, res, next) {
+
+    var self = this;
+
+    var params = [];
+
+    this.model.query('SEL_TIPO_NOMINA_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
 
 module.exports = Filtros;
