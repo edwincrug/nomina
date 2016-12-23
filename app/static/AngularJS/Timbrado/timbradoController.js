@@ -122,4 +122,6 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
 	    });
     }
+
+    
 });
