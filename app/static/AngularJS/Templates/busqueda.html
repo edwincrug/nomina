@@ -30,7 +30,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Departamento:</label>
-                        <select class="form-control" ng-model="tipoEmpresa.idDepartamento" ng-options="tipoDepartamento.idDepartamento as tipoDepartamento.nombreDepartamento for tipoDepartamento in departamento" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                        <select class="form-control" ng-model="tipoEmpresa.idDepartamento" ng-options="tipoDepartamento.idDepartamento as tipoDepartamento.nombreDepartamento for tipoDepartamento in departamento" name="txtTipoContrato" ng-change="getTipoNomina()">
                             <option value="">Seleccioné Departamento</option>
                         </select>
                     </div>
@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Tipo de Nómina:</label>
-                        <select class="form-control" ng-model="nuevoContrato.idTipoContrato" ng-options="tipoContrato.idTipoContrato as tipoContrato.nombreContrato for tipoContrato in listaTiposContrato" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                        <select class="form-control" ng-model="tipoEmpresa.idTipoNomina" ng-options="tipoDeNomina.idTipoNomina as tipoDeNomina.nomTipoNomina for tipoDeNomina in tipoNomina" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
                             <option value="">Seleccioné el tipo de nómina</option>
                         </select>
                     </div>
