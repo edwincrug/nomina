@@ -42,6 +42,15 @@ registrationModule.factory('filtrosRepository', function($http) {
                 }
 
             });
+        },
+        getTipoNomina: function(){
+            return $http({
+                url: filtroURL + 'tipoNomina/',
+                method:"GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
       
     };

@@ -135,6 +135,14 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
             }
     });
 
+    $scope.getTipoNomina = function(){
+    	filtrosRepository.getTipoNomina().then(function(){
+    		if(result.data.length > 0){
+    			$scope.tipoNomina = result.data;
+    		}
+    	});
+    }
+
     
 };
 });
