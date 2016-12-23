@@ -6,6 +6,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     	openCloseNav()
     	$scope.treeView();
     	$scope.getEmpresa($scope.idUsuario);
+    	$scope.getTipoNomina();
     }
 
 
@@ -136,8 +137,9 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     });
 
     $scope.getTipoNomina = function(){
-    	filtrosRepository.getTipoNomina().then(function(){
+    	filtrosRepository.getTipoNomina().then(function(result){
     		if(result.data.length > 0){
+    			console.log(result.data)
     			$scope.tipoNomina = result.data;
     		}
     	});
