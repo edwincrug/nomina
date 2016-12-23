@@ -1,8 +1,13 @@
-registrationModule.controller('timbradoController', function($scope, $rootScope, alertFactory, timbradoRepository,localStorageService) {
+registrationModule.controller('timbradoController', function($scope, $rootScope, alertFactory, timbradoRepository,localStorageService,filtrosRepository) {
+    
+    $scope.idUsuario = 2;
+    $scope.tipoEmpresa = [];
     $scope.init = function(){
     	openCloseNav()
     	$scope.treeView();
+    	$scope.getEmpresa($scope.idUsuario);
     }
+
 
     $scope.treeView = function(){
 	    $(document).ready(function(){
@@ -123,5 +128,13 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 	    });
     }
 
+    $scope.getEmpresa = function(idUsuario){
+    	filtrosRepository.getEmpresa(idUsuario).then(function(result) {
+            if (result.data.length > 0) {
+            	$scope.empresasUsuario = result.data;
+            }
+    });
+
     
+};
 });
