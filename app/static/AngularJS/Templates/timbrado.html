@@ -16,14 +16,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Tipo Nómina:</label>
-                            <select class="form-control" ng-model="tipoNomina.idTipoNomina" ng-options="tipoNomina.idTipoNomina as tipoNomina.nomTipoNomina for tipoNomina in tipoNomina" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)">
+                            <select class="form-control" ng-model="tipoNomina.idTipoNomina" ng-options="tipoNomina.idTipoNomina as tipoNomina.nomTipoNomina for tipoNomina in tipoNomina" name="txtTipoContrato" ng-change="cargaDocTipoContrato(nuevoContrato)" ng-click="getFileTree(tipoEmpresa.idTipoEmpresa,tipoNomina.idTipoNomina)">
                                 <option value="">Seleccioné Tipo Nómina</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-left: 8px">
+            <div class="row" style="margin-left: 8px" ng-show="yooo">
                 <div class="col-lg-6">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -47,26 +47,6 @@
                                                     <li data-jstree='"type":"css"}'>animate.css</li>
                                                 </ul>
                                             </li>
-                                            <li>email-templates
-                                                <ul>
-                                                    <li data-jstree='"type":"html"}'>action.html</li>
-                                                    <li data-jstree='"type":"html"}'>alert.html</li>
-                                                </ul>
-                                            </li>
-                                            <li>fonts
-                                                <ul>
-                                                    <li data-jstree='"type":"svg"}'>glyphicons-halflings-regular.eot</li>
-                                                </ul>
-                                            </li>
-                                            <li class="jstree-open">js
-                                                <ul>
-                                                    <li data-jstree='"type":"js"}'>inspinia.js</li>
-                                                    <li data-jstree='"type":"js"}'>bootstrap.js</li>
-                                                    <li data-jstree='"type":"js"}'>jquery-2.1.1.js</li>
-                                                    <li data-jstree='"type":"js"}'>jquery-ui.custom.min.js</li>
-                                                    <li class="text-navy" data-jstree='"type":"js"}'>jquery-ui-1.10.4.min.js</li>
-                                                </ul>
-                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -74,6 +54,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-6" ng-show="yo">
+            <div class="ibox-content" style="margin-left: 8px">
+                <div >
+                    <ul>
+                        <li style="display: block; text-decoration: none;"><a style="cursor:pointer; color:black"><span class="glyphicon glyphicon-folder-open"></span>  {{filetree.name}}</a>
+                            <ul ng-repeat="filetreed in filetree.children"  style="background-color:white;">
+                                <li style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreed)"><a style="cursor:pointer; color:black"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.name}}</a>
+                                    <ul ng-repeat="filetreechildren in filetreed.children"  style="background-color:white">
+                                        <li style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreechildren)"><a style="cursor:pointer; color:black"><span class=" glyphicon glyphicon-list-alt"></span>  {{filetreechildren.name}}</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <div class="col-lg-6">
+                {{rutaCarpeta}}
+                
             </div>
         </div>
     </div>

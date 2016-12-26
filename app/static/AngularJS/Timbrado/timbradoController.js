@@ -1,12 +1,15 @@
-registrationModule.controller('timbradoController', function($scope, $rootScope, alertFactory, timbradoRepository,localStorageService,filtrosRepository) {
+registrationModule.controller('timbradoController', function($scope, $rootScope, alertFactory, timbradoRepository,localStorageService,filtrosRepository,filetreeRepository) {
     
     $scope.idUsuario = 2;
+    $scope.rutaCarpeta = ""
     $scope.tipoEmpresa = [];
     $scope.init = function(){
+    	$scope.yo = false;
     	openCloseNav()
     	$scope.treeView();
     	$scope.getEmpresa($scope.idUsuario);
     	$scope.getTipoNomina();
+    	//$scope.getFileTree();
     }
 
 
@@ -40,94 +43,9 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
 	            }
 	        });
-
-	        $('#using_json').jstree({
-	            'core' : {
-	            'data' : [
-	                'Empty Folder',
-	                {
-	                    'text': 'Resources',
-	                    'state': {
-	                        'opened': true
-	                    },
-	                    'children': [
-	                        {
-	                            'text': 'css',
-	                            'children': [
-	                                {
-	                                    'text': 'animate.css', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'bootstrap.css', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'main.css', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'style.css', 'icon': 'none'
-	                                }
-	                            ],
-	                            'state': {
-	                                'opened': true
-	                            }
-	                        },
-	                        {
-	                            'text': 'js',
-	                            'children': [
-	                                {
-	                                    'text': 'bootstrap.js', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'inspinia.min.js', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'jquery.min.js', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'jsTree.min.js', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'custom.min.js', 'icon': 'none'
-	                                }
-	                            ],
-	                            'state': {
-	                                'opened': true
-	                            }
-	                        },
-	                        {
-	                            'text': 'html',
-	                            'children': [
-	                                {
-	                                    'text': 'layout.html', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'navigation.html', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'navbar.html', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'footer.html', 'icon': 'none'
-	                                },
-	                                {
-	                                    'text': 'sidebar.html', 'icon': 'none'
-	                                }
-	                            ],
-	                            'state': {
-	                                'opened': true
-	                            }
-	                        }
-	                    ]
-	                },
-	                'Fonts',
-	                'Images',
-	                'Scripts',
-	                'Templates',
-	            ]
-	        } });
-
 	    });
     }
+
 
     $scope.getEmpresa = function(idUsuario){
     	filtrosRepository.getEmpresa(idUsuario).then(function(result) {
@@ -139,12 +57,26 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.getTipoNomina = function(){
     	filtrosRepository.getTipoNomina().then(function(result){
     		if(result.data.length > 0){
-    			console.log(result.data)
     			$scope.tipoNomina = result.data;
     		}
     	});
-    }
+    }//getFileTree
 
+     $scope.getFileTree = function(idEmpresa, idTipo){
+
+    	filetreeRepository.getFileTree(idEmpresa,idTipo).then(function(result){
+    		if (result.data !=  undefined) { 
+    			$scope.filetree = result.data;
+    			$scope.yo = true;
+    		}
+    	});
+    };
+
+    $scope.ruta = function(obj){
+    	
+    	console.log(obj)
+    	$scope.rutaCarpeta = obj.path;
+    }
     
 };
 });
