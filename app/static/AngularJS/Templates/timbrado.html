@@ -58,8 +58,8 @@
             <div class="col-lg-6" ng-show="yo">
             <div class="ibox-content" style="margin-left: 8px">
                 <div >
-                    <ul>
-                        <li style="display: block; text-decoration: none;"><a style="cursor:pointer; color:black"><span class="glyphicon glyphicon-folder-open"></span>  {{filetree.name}}</a>
+                    <!-- <ul>
+                        <li style="display: block; text-decoration: none;"><a style="cursor:pointer; color:black"><span class="glyphicon glyphicon-folder-open"></span>  {{filetree.name}}</a> -->
                             <ul ng-repeat="filetreed in filetree.children"  style="background-color:white;">
                                 <li style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreed)"><a style="cursor:pointer; color:black"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.name}}</a>
                                     <ul ng-repeat="filetreechildren in filetreed.children"  style="background-color:white">
@@ -67,14 +67,14 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
+                        <!-- </li> 
+                    </ul>-->
                 </div>
             </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" ng-show="yo">
                 {{rutaCarpeta}}
-                
+                <form action="/upload" class="dropzone" drop-zone="" id="file-dropzone" style="color:black !important"></form>
             </div>
         </div>
     </div>
