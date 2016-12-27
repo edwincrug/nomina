@@ -2,13 +2,26 @@ var filtroURL = global_settings.urlCORS + 'api/filtros/';
 
 
 registrationModule.factory('filtrosRepository', function($http) {
-    return { 
-    	 getEmpresa: function(idUsuario) {
+    return {
+        getGrupo: function(idUsuario) {
+            return $http({
+                url: filtroURL + 'grupo/',
+                method: "GET",
+                params: {
+                    idUsuario: idUsuario
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getEmpresa: function(idgrupo) {
             return $http({
                 url: filtroURL + 'empresa/',
                 method: "GET",
                 params: {
-                    idUsuario: idUsuario
+                    idGrupo: idgrupo
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,16 +56,16 @@ registrationModule.factory('filtrosRepository', function($http) {
 
             });
         },
-        getTipoNomina: function(){
+        getTipoNomina: function() {
             return $http({
                 url: filtroURL + 'tipoNomina/',
-                method:"GET",
+                method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
         }
-      
+
     };
 
 });

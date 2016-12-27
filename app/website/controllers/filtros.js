@@ -20,12 +20,24 @@ var Filtros = function (conf) {
     };
 };
 
-
-Filtros.prototype.get_empresa = function (req, res, next) {
+Filtros.prototype.get_grupo = function (req, res, next) {
 
     var self = this;
 
     var params = [{name: 'idUsuario',value: req.query.idUsuario,type: self.model.types.INT}];
+
+    this.model.query('SEL_GRUPO_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+Filtros.prototype.get_empresa = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idGrupo',value: req.query.idGrupo,type: self.model.types.INT}];
 
     this.model.query('SEL_EMPRESAS_SP', params, function (error, result) {
         self.view.expositor(res, {
