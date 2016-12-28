@@ -59,17 +59,22 @@
                 <div class="ibox-content" style="margin-left: 8px">
                     <div>
                         <ul ng-repeat="filetreed in filetree" style="background-color:white;" id="menu_arbol">
-                            <li id="padre" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreed.datos)"><a style="cursor:pointer; color:black"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.datos.name}}</a>
+                            <li id="padre" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreed.datos)"><a style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.datos.name}}</a>
                                 <ul id="{{filetreed.datos.name}}" ng-repeat="filetreechildren in filetreed.datos.children" style="background-color:white">
-                                    <li  id="{{filetreed.datos.name}}" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreechildren)"><a  style="cursor:pointer; color:black"><span class=" glyphicon glyphicon-list-alt"></span>  {{filetreechildren.name}}</a></li>
+                                    <li  id="{{filetreed.datos.name}}" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreechildren)"><a  style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)><span class=" glyphicon glyphicon-list-alt"></span>  {{filetreechildren.name}}</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
+                    {{rutaCarpeta}}
+                </div>
+                <div style="margin-left: 85%; margin-top: 5px" ng-show="timbrar">
+                <button class="btn btn-info">Timbrar</button>
                 </div>
             </div>
-            <div class="col-lg-6" ng-show="yo">
-                {{rutaCarpeta}}
+            <div class="col-lg-6">
+              <div class="ibox-content">
+              </div>  
             </div>
         </div>
     </div>
