@@ -2,5 +2,6 @@
      busqueda: require('./controllers/busqueda'),
      timbrado: require('./controllers/busqueda'),
      filtros: require('./controllers/filtros'),
-     filetree: require('./controllers/filetree')
+     filetree: require('./controllers/filetree'),
+     login:require('./controllers/login')
  }

@@ -2,10 +2,12 @@
     $scope.tipoEmpresa = '';
     $scope.periodoFecha = '';
     $scope.fecha = '';
+    $rootScope.mostrarMenu = true;
     $scope.init = function() {
         openCloseNav();
         $scope.getGrupo(1);
         variablesInput();
+
     }
     var variablesInput = function() {
             $scope.activarInputEmpresa = true;
@@ -145,11 +147,11 @@
                 $scope.fecha = periodo.substr(2, 2) + '-' + periodo.substr(0, 2) + '-' + periodo.substr(4, 4);
                 var fechaCarpeta = new Date($scope.fecha);
                 $scope.periodoFecha = fechaCarpeta instanceof Date && !isNaN(fechaCarpeta.valueOf());
-                if(fechaCarpeta<=fechaActual){
-                    if($scope.periodoFecha===true){
+                if (fechaCarpeta <= fechaActual) {
+                    if ($scope.periodoFecha === true) {
                         console.log('Aqui empezara la busqueda')
                     }
-                }else{
+                } else {
                     alertFactory.warning('El periodo es incorrecto');
                 }
                 console.log($scope.periodoFecha);

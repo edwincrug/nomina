@@ -5,22 +5,29 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute","LocalStorageModule"])
+var registrationModule = angular.module("registrationModule", ["ngRoute", "LocalStorageModule"])
     .config(function($routeProvider, $locationProvider) {
 
         /*cheange the routes*/
+        $routeProvider.when('/', {
+            templateUrl: 'AngularJS/Templates/login.html', //example 1
+        //     params: {
+        //     mostrar: true
+        // }
+            controller: 'loginController'
+        });
         $routeProvider.when('/timbrado', {
             templateUrl: 'AngularJS/Templates/timbrado.html', //example 1
             controller: 'timbradoController'
         });
-         $routeProvider.when('/busqueda', {
+        $routeProvider.when('/busqueda', {
             templateUrl: 'AngularJS/Templates/busqueda.html', //example 1
             controller: 'busquedaController'
         });
 
         $locationProvider.html5Mode({
             enabled: true,
-            requireBase: false  
+            requireBase: false
         });
     });
 
