@@ -6,7 +6,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Grupo:</label>
-                        <select class="form-control" ng-model="tipoEmpresa.idTipoGrupo" ng-options="tipoGrupo.idGrupo as tipoGrupo.nombreGrupo for tipoGrupo in grupo" name="txtTipoContrato" ng-change="getEmpresa(tipoEmpresa.idTipoGrupo)">
+                        <select class="form-control" ng-model="filtros.idTipoGrupo" ng-options="tipoGrupo.idGrupo as tipoGrupo.nombreGrupo for tipoGrupo in grupo" name="txtTipoContrato" ng-change="getEmpresa(filtros.idTipoGrupo)">
                             <option value="">Seleccioné Grupo</option>
                         </select>
                     </div>
@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Empresa:</label>
-                        <select class="form-control" ng-model="tipoEmpresa.idTipoEmpresa" ng-options="empresa.idEmpresa as empresa.nombreEmpresa for empresa in empresaUsuario" name="txtTipoContrato" ng-change="cargaTipoAgencia(tipoEmpresa.idTipoEmpresa)" ng-disabled="activarInputEmpresa">
+                        <select class="form-control" ng-model="filtros.idTipoEmpresa" ng-options="empresa.idEmpresa as empresa.nombreEmpresa for empresa in empresaUsuario" name="txtTipoContrato" ng-change="cargaTipoAgencia(filtros.idTipoEmpresa)" ng-disabled="activarInputEmpresa">
                             <option value="">Seleccioné Empresa</option>
                         </select>
                     </div>
@@ -22,7 +22,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Agencia:</label>
-                        <select class="form-control" ng-model="tipoEmpresa.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(tipoEmpresa.idTipoEmpresa,tipoEmpresa.idSucursal);activaPeriodo();" ng-disabled="activarInputAgencia">
+                        <select class="form-control" ng-model="filtros.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(filtros.idTipoEmpresa,filtros.idSucursal);activaPeriodo();" ng-disabled="activarInputAgencia">
                             <option value="">Seleccioné Agencia</option>
                         </select>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Departamento:</label>
-                        <select class="form-control" ng-model="tipoEmpresa.idDepartamento" ng-options="tipoDepartamento.idDepartamento as tipoDepartamento.nombreDepartamento for tipoDepartamento in departamento" name="txtTipoContrato" ng-change="getTipoNomina(tipoEmpresa.idDepartamento)" ng-disabled="activarInputDepartamento">
+                        <select class="form-control" ng-model="filtros.idDepartamento" ng-options="tipoDepartamento.idDepartamento as tipoDepartamento.nombreDepartamento for tipoDepartamento in departamento" name="txtTipoContrato" ng-change="getTipoNomina(filtros.idDepartamento)" ng-disabled="activarInputDepartamento">
                             <option value="">Seleccioné Departamento</option>
                         </select>
                     </div>
@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Tipo de Nómina:</label>
-                        <select class="form-control" ng-model="tipoEmpresa.idTipoNomina" ng-options="tipoDeNomina.idTipoNomina as tipoDeNomina.nomTipoNomina for tipoDeNomina in tipoNomina" name="txtTipoContrato" ng-change="" ng-disabled="activarInputTipoNomina">
+                        <select class="form-control" ng-model="filtros.idTipoNomina" ng-options="tipoDeNomina.idTipoNomina as tipoDeNomina.nomTipoNomina for tipoDeNomina in tipoNomina" name="txtTipoContrato" ng-change="" ng-disabled="activarInputTipoNomina">
                             <option value="">Seleccioné el tipo de nómina</option>
                         </select>
                     </div>
@@ -46,7 +46,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Período:</label>
-                        <input type="text" class="form-control" placeholder="ej. 31072016" ng-disabled="activarInputPeriodo" ng-model="tipoEmpresa.periodo" ng-change="verificaFecha(tipoEmpresa.periodo)" maxlength="8">
+                        <input type="text" class="form-control" placeholder="ej. 31072016" ng-disabled="activarInputPeriodo" ng-model="filtros.periodo" ng-change="verificaFecha(filtros)" maxlength="8">
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 ﻿registrationModule.controller('busquedaController', function($scope, $rootScope, alertFactory, busquedaRepository, localStorageService, filtrosRepository) {
-    $scope.tipoEmpresa = '';
+    $scope.filtros = '';
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
@@ -54,11 +54,11 @@
                 });
             } else {
                 variablesInput();
-                $scope.tipoEmpresa.idTipoEmpresa = '';
-                $scope.tipoEmpresa.idSucursal = '';
-                $scope.tipoEmpresa.idDepartamento = '';
-                $scope.tipoEmpresa.idTipoNomina = '';
-                $scope.tipoEmpresa.periodo = '';
+                $scope.filtros.idTipoEmpresa = '';
+                $scope.filtros.idSucursal = '';
+                $scope.filtros.idDepartamento = '';
+                $scope.filtros.idTipoNomina = '';
+                $scope.filtros.periodo = '';
                 alertFactory.warning('Seleccioné un Grupo');
             }
         }
@@ -79,10 +79,10 @@
         }
     }
     var empresaVacia = function() {
-            $scope.tipoEmpresa.idSucursal = '';
-            $scope.tipoEmpresa.idDepartamento = '';
-            $scope.tipoEmpresa.idTipoNomina = '';
-            $scope.tipoEmpresa.periodo = '';
+            $scope.filtros.idSucursal = '';
+            $scope.filtros.idDepartamento = '';
+            $scope.filtros.idTipoNomina = '';
+            $scope.filtros.periodo = '';
             $scope.activarInputAgencia = true;
             $scope.activarInputDepartamento = true;
             $scope.activarInputTipoNomina = true;
@@ -105,9 +105,9 @@
         }
     }
     var sucursalVacia = function() {
-            $scope.tipoEmpresa.idDepartamento = '';
-            $scope.tipoEmpresa.idTipoNomina = '';
-            $scope.tipoEmpresa.periodo = '';
+            $scope.filtros.idDepartamento = '';
+            $scope.filtros.idTipoNomina = '';
+            $scope.filtros.periodo = '';
             $scope.activarInputDepartamento = true;
             $scope.activarInputTipoNomina = true;
             $scope.activarInputPeriodo = true;
@@ -116,7 +116,7 @@
         //**********Inicia Consigue el tipo de Nomina **********//
     $scope.getTipoNomina = function(iddepartamento) {
         if (iddepartamento != null) {
-            sucursalVacia();
+            tipoNominaVacia();
             filtrosRepository.getTipoNomina().then(function(result) {
                 if (result.data.length > 0) {
                     $scope.tipoNomina = result.data;
@@ -124,14 +124,14 @@
                 }
             });
         } else {
-            sucursalVacia();
+            tipoNominaVacia();
             alertFactory.warning('Seleccioné un Departamento');
         }
 
     }
-    var sucursalVacia = function() {
-            $scope.tipoEmpresa.idTipoNomina = '';
-            $scope.tipoEmpresa.periodo = '';
+    var tipoNominaVacia = function() {
+            $scope.filtros.idTipoNomina = '';
+            $scope.filtros.periodo = '';
             $scope.activarInputTipoNomina = true;
         }
         //**********Termina Consigue el tipo de Nomina **********//
@@ -141,15 +141,18 @@
         }
         //**********Termina Activa el input de periodo************//
         //**********Inicia Verifica si es una fecha************//
-    $scope.verificaFecha = function(periodo) {
-            if (periodo.length == 8) {
+    $scope.verificaFecha = function(filtro) {
+            if (filtro.periodo.length == 8) {
                 var fechaActual = new Date();
-                $scope.fecha = periodo.substr(2, 2) + '-' + periodo.substr(0, 2) + '-' + periodo.substr(4, 4);
+                $scope.fecha = filtro.periodo.substr(2, 2) + '-' + filtro.periodo.substr(0, 2) + '-' + filtro.periodo.substr(4, 4);
                 var fechaCarpeta = new Date($scope.fecha);
                 $scope.periodoFecha = fechaCarpeta instanceof Date && !isNaN(fechaCarpeta.valueOf());
                 if (fechaCarpeta <= fechaActual) {
                     if ($scope.periodoFecha === true) {
-                        console.log('Aqui empezara la busqueda')
+                        alertFactory.warning('Aqui empezara la busqueda')
+                         busquedaRepository.getTimbrados(filtro).then(function(result){
+
+                         });
                     }
                 } else {
                     alertFactory.warning('El periodo es incorrecto');
