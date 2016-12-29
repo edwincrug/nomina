@@ -23,70 +23,55 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-left: 8px" ng-show="yooo">
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Arbol de Carpetas <small>Tipos de nómina</small></h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <div id="jstree1">
-                                <ul>
-                                    <li class="jstree-open">Meta 4
-                                        <ul>
-                                            <li>css
-                                                <ul>
-                                                    <li data-jstree='"type":"css"}'>animate.css</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+            <div class="col-lg-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Arbol de carpetas
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6" ng-show="yo">
-                <div class="ibox-content" style="margin-left: 8px">
-                    <div>
+                    <div class="panel-body" ng-show="yo">
                         <ul ng-repeat="filetreed in filetree" style="background-color:white;" id="menu_arbol">
                             <li id="padre" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreed.datos)"><a style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.datos.name}}</a>
                                 <ul id="{{filetreed.datos.name}}" ng-repeat="filetreechildren in filetreed.datos.children" style="background-color:white">
-                                    <li  id="{{filetreed.datos.name}}" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreechildren)"><a  style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)><span class=" glyphicon glyphicon-list-alt"></span>  {{filetreechildren.name}}</a></li>
+                                    <li id="{{filetreed.datos.name}}" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreechildren)">
+                                        <a style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)><span class=" glyphicon glyphicon-list-alt "></span>  {{filetreechildren.name}}</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
-                    {{rutaCarpeta}}
+                    
+                    <div style="margin-left: 85%; margin-bottom: :15px" ng-show="timbrar" >
+                        <button class="btn" style="background: #F66B06; border-color:#F66B06; color:white" ng-click="realizarTimbrado()">Timbrar</button>
+                    </div>
+                    <div style="color:white">{{rutaCarpeta}}</div>
                 </div>
-                <div style="margin-left: 85%; margin-top: 5px" ng-show="timbrar">
-                <button class="btn btn-info">Timbrar</button>
-                </div>
+               <!-- <div style="margin-left: 90%; " ng-show="timbrar ">
+    <button class="btn btn-info " ng-click="realizarTimbrado() ">Timbrar</button>
+</div>
+ -->
             </div>
-            <div class="col-lg-6">
-              <div class="ibox-content">
-              </div>  
+            <div class="col-lg-1 "></div>
+            <div class="col-lg-3 ">
+               <div class="panel " ng-show="procesando " style="border-color:#004E8C ">
+                    <div class="panel-heading " style="background: #004E8C;color: white ">
+                            Procesando.....
+                    </div>
+                        <div class="panel-body ">
+                            Empresa/Periodo
+                            <div class="progress progress-striped active ">
+                                <div style="width: 40% " aria-valuemax="100 " aria-valuemin="0 " aria-valuenow="75 " role="progressbar " class="progress-bar progress-bar-sucess ">
+                                    <span class="sr-only "></span> 40%
+                                </div>
+                            </div>
+                            40 de 100<br/>
+                            <label>Tiempo transcurrido: </label><br/>
+                            <label>Documentos timbrados: </label> 25<br/>
+                            <label>Documentos no timbrados: </label> 15
+                        </div>
+                </div>
+
             </div>
         </div>
     </div>
     <!-- /div>
     </div> -->
 </div>
-<style>
-.jstree-open > .jstree-anchor > .fa-folder:before {
-    content: "\f07c";
-}
-
-.jstree-default .jstree-icon.none {
-    width: 0;
-}
-</style>

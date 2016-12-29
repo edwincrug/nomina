@@ -1,9 +1,12 @@
 registrationModule.controller('timbradoController', function($scope, $rootScope, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
 
     $scope.idUsuario = 2;
+    $scope.procesando = false;
     $scope.rutaCarpeta = ""
     $scope.tipoEmpresa = [];
     $scope.timbrar = false;
+
+    
     $scope.init = function() {
         $scope.yo = false;
         openCloseNav()
@@ -41,16 +44,15 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
     $scope.ruta = function(obj) {
     	$scope.timbrar = true;
-    	//$scope.nombre = obj.name
-        //$("ul").children('#'+$scope.nombre).slideToggle("fast");
         $scope.rutaCarpeta = obj.path;
        }
 
     $scope.seleccionarTimbre = function(obj){
-    	//$scope.timbrar = true;
-    	//$scope.nombre = obj.name
-    	//$scope.rutaCarpeta = obj.path;
     	$scope.nombre = obj.name
         $("ul").children('#'+$scope.nombre).slideToggle("fast");
+    }
+
+    $scope.realizarTimbrado = function(){
+    	$scope.procesando = true;
     }
 });
