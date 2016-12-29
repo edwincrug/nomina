@@ -21,11 +21,11 @@ var Timbrado = function (conf) {
 };
 
 
-Timbrado.prototype.get_facturas = function (req, res, next) {
+Timbrado.prototype.get_timbradoProcesando = function (req, res, next) {
 
     var self = this;
 
-    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT}];
+    var params = [{name: 'idUsuario',value: req.query.idUsuario,type: self.model.types.INT}];
 
     this.model.query('SEL_TOTAL_FACTURAS_TODOS_SP', params, function (error, result) {
         self.view.expositor(res, {

@@ -3,6 +3,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.idUsuario = 2;
     $scope.procesando = false;
     $scope.rutaCarpeta = ""
+    $scope.nombre = "";
     $scope.tipoEmpresa = [];
     $scope.timbrar = false;
 
@@ -54,5 +55,6 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
     $scope.realizarTimbrado = function(){
     	$scope.procesando = true;
+        console.log($scope.nombre +' '+ $scope.rutaCarpeta)
     }
 });

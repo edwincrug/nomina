@@ -15,8 +15,23 @@ registrationModule.factory('filetreeRepository', function($http) {
                     'Content-Type': 'application/json'
                 }
             });
+        },
+        getSocket: function(idEmpresa,idTipo,idUsuario,pach,nombreCarpeta){
+            return $http({
+                url:filetreeURL + 'socket/',
+                method:"GET",
+                params:{
+                    idEmpresa: idEmpresa,
+                    idTipo: idTipo,
+                    idUsuario: idUsuario,
+                    pach: pach,
+                    nombreCarpeta: nombreCarpeta
+                },
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            });
         }
-      
     };
 
 });
