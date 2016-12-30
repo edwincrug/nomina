@@ -33,7 +33,7 @@ Busqueda.prototype.get_timbrados = function(req, res, next) {
         { name: 'carpeta', value: req.query.carpeta, type: self.model.types.STRING }
     ];
 
-    this.model.query('SEL_TOTAL_FACTURAS_TODOS_SP', params, function(error, result) {
+    this.model.query('SEL_BUSQUEDA_TIMBRADOS_SP', params, function(error, result) {
         self.view.expositor(res, {
             error: error,
             result: result

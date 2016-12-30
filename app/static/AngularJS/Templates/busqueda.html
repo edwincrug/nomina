@@ -22,7 +22,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Agencia:</label>
-                        <select class="form-control" ng-model="filtros.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(filtros.idTipoEmpresa,filtros.idSucursal);activaPeriodo();" ng-disabled="activarInputAgencia">
+                        <select class="form-control" ng-model="filtros.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(filtros.idTipoEmpresa,filtros.idSucursal);activaPeriodo(filtros.idSucursal);" ng-disabled="activarInputAgencia">
                             <option value="">Seleccioné Agencia</option>
                         </select>
                     </div>
@@ -92,7 +92,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="timbrado in timbrados">
+                                        <th>{{timbrado.idEmpleado}}</th>
+                                        <th>{{timbrado.nombreEmpleado}}</th>
+                                        <th>{{timbrado.nombreEmpresa}}</th>
+                                        <th>{{timbrado.nombreSucursal}}</th>
+                                        <th>{{timbrado.nombreDepartamento}}</th>
+                                        <th>{{timbrado.descripcionNomina}}</th>
+                                        <th>{{timbrado.nombreRecibo}}</th>
+                                        <th></th>
+                                        <th></th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -121,7 +130,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="notimbra in timbrados">
+                                        <th>{{notimbra.idEmpleado}}</th>
+                                        <th>{{notimbra.nombreEmpleado}}</th>
+                                        <th>{{notimbra.nombreEmpresa}}</th>
+                                        <th>{{notimbra.nombreSucursal}}</th>
+                                        <th>{{notimbra.nombreDepartamento}}</th>
+                                        <th>{{notimbra.descripcionNomina}}</th>
+                                        <th>{{notimbra.nombreRecibo}}</th>
+                                        <th>{{notimbra.descripcionTimbrado}}</th>
                                         </tr>
                                     </tbody>
                                 </table>

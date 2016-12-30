@@ -1,13 +1,13 @@
 ﻿registrationModule.controller('busquedaController', function($scope, $rootScope, alertFactory, busquedaRepository, localStorageService, filtrosRepository) {
-    $scope.filtros = '';
+    $scope.filtros = null;
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
+    $scope.timbrados='';
     $scope.init = function() {
         openCloseNav();
         $scope.getGrupo(1);
         variablesInput();
-
     }
     var variablesInput = function() {
             $scope.activarInputEmpresa = true;
@@ -54,11 +54,11 @@
                 });
             } else {
                 variablesInput();
-                $scope.filtros.idTipoEmpresa = '';
-                $scope.filtros.idSucursal = '';
-                $scope.filtros.idDepartamento = '';
-                $scope.filtros.idTipoNomina = '';
-                $scope.filtros.periodo = '';
+                $scope.filtros.idTipoEmpresa = null;
+                $scope.filtros.idSucursal = null;
+                $scope.filtros.idDepartamento = null;
+                $scope.filtros.idTipoNomina = null;
+                $scope.filtros.periodo = null;
                 alertFactory.warning('Seleccioné un Grupo');
             }
         }
@@ -79,10 +79,10 @@
         }
     }
     var empresaVacia = function() {
-            $scope.filtros.idSucursal = '';
-            $scope.filtros.idDepartamento = '';
-            $scope.filtros.idTipoNomina = '';
-            $scope.filtros.periodo = '';
+            $scope.filtros.idSucursal = null;
+            $scope.filtros.idDepartamento = null;
+            $scope.filtros.idTipoNomina = null;
+            $scope.filtros.periodo = null;
             $scope.activarInputAgencia = true;
             $scope.activarInputDepartamento = true;
             $scope.activarInputTipoNomina = true;
@@ -97,6 +97,7 @@
                 if (result.data.length > 0) {
                     $scope.departamento = result.data;
                     $scope.activarInputDepartamento = false;
+                    $scope.activarInputTipoNomina = false;
                 }
             });
         } else {
@@ -105,11 +106,12 @@
         }
     }
     var sucursalVacia = function() {
-            $scope.filtros.idDepartamento = '';
-            $scope.filtros.idTipoNomina = '';
-            $scope.filtros.periodo = '';
+            $scope.filtros.idDepartamento = null;
+            $scope.filtros.idTipoNomina = null;
+            $scope.filtros.periodo = null;
             $scope.activarInputDepartamento = true;
             $scope.activarInputTipoNomina = true;
+            $scope.activarInputPeriodo = true;
             $scope.activarInputPeriodo = true;
         }
         //**********Termina Consigue el tipo de Departamento ligadas a la Empresa y Sucursal**********//
@@ -127,17 +129,17 @@
             tipoNominaVacia();
             alertFactory.warning('Seleccioné un Departamento');
         }
-
     }
     var tipoNominaVacia = function() {
-            $scope.filtros.idTipoNomina = '';
-            $scope.filtros.periodo = '';
-            $scope.activarInputTipoNomina = true;
+            $scope.filtros.idTipoNomina = null;
+            $scope.filtros.periodo = null;
         }
         //**********Termina Consigue el tipo de Nomina **********//
         //**********Inicia Activa el input de periodo************//
-    $scope.activaPeriodo = function() {
-            $scope.activarInputPeriodo = false;
+    $scope.activaPeriodo = function(agencia) {
+            if(agencia!=null){
+                $scope.activarInputPeriodo = false;
+            }            
         }
         //**********Termina Activa el input de periodo************//
         //**********Inicia Verifica si es una fecha************//
@@ -150,9 +152,10 @@
                 if (fechaCarpeta <= fechaActual) {
                     if ($scope.periodoFecha === true) {
                         alertFactory.warning('Aqui empezara la busqueda')
-                         busquedaRepository.getTimbrados(filtro).then(function(result){
-
-                         });
+                        busquedaRepository.getTimbrados(filtro).then(function(result) {
+                            console.log(result);
+                            $scope.timbrados=result.data;
+                        });
                     }
                 } else {
                     alertFactory.warning('El periodo es incorrecto');
