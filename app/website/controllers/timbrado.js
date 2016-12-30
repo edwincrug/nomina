@@ -25,9 +25,9 @@ Timbrado.prototype.get_timbradoProcesando = function (req, res, next) {
 
     var self = this;
 
-    var params = [{name: 'idUsuario',value: req.query.idUsuario,type: self.model.types.INT}];
+    var params = [{name: 'Usuario',value: req.query.Usuario,type: self.model.types.INT}];
 
-    this.model.query('SEL_TOTAL_FACTURAS_TODOS_SP', params, function (error, result) {
+    this.model.query('SEL_AVANCE_TIMBRADO_SP', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
             result: result

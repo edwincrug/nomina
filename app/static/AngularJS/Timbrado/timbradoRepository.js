@@ -3,12 +3,12 @@ var timbradoURL = global_settings.urlCORS + 'api/timbrado/';
 
 registrationModule.factory('timbradoRepository', function($http) {
     return {
-    	getPermisos: function(idUsuario) {
+    	getPermisos: function(Usuario) {
             return $http({
                 url: timbradoURL + 'timbradoProcesando/',
                 method: "GET",
                 params: {
-                    idUsuario: idUsuario
+                    Usuario: Usuario
                 },
                 headers: {
                     'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ registrationModule.factory('filetreeRepository', function($http) {
                 }
             });
         },
-        getSocket: function(idEmpresa,idTipo,idUsuario,pach,nombreCarpeta){
+        getSocket: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta){
             return $http({
                 url:filetreeURL + 'socket/',
                 method:"GET",
@@ -24,7 +24,7 @@ registrationModule.factory('filetreeRepository', function($http) {
                     idEmpresa: idEmpresa,
                     idTipo: idTipo,
                     idUsuario: idUsuario,
-                    pach: pach,
+                    path: path,
                     nombreCarpeta: nombreCarpeta
                 },
                 headers:{
