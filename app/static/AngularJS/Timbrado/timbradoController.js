@@ -71,7 +71,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                 alertFactory.warning('no se pudo realizar');
             }
         })
-        alertFactory.error('esperando');
+        //alertFactory.error('esperando');
     }
 
     $scope.getPermisos = function() {
