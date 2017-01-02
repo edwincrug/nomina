@@ -12,7 +12,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.mensajePanel = "";
 
     $scope.init = function() {
-        $scope.carga();
+        //$scope.carga();
         $scope.yo = false;
         openCloseNav()
         $scope.getEmpresa(1);
@@ -94,6 +94,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                     }
                 } else {
                     $scope.procesando = false;
+                    $scope.yo = true;
                     $scope.timbradoPendiente = false;
                 }
 
@@ -103,28 +104,28 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         });
     }
 
-    $scope.carga = function() {
-        contador_s = 0;
-        contador_m = 0;
-        s = document.getElementById("segundos");
-        m = document.getElementById("minutos");
+    // $scope.carga = function() {
+    //     contador_s = 0;
+    //     contador_m = 0;
+    //     s = document.getElementById("segundos");
+    //     m = document.getElementById("minutos");
 
-        cronometro = setInterval(
-            function() {
-                if (contador_s == 60) {
-                    contador_s = 0;
-                    contador_m++;
-                    m.innerHTML = contador_m;
+    //     cronometro = setInterval(
+    //         function() {
+    //             if (contador_s == 60) {
+    //                 contador_s = 0;
+    //                 contador_m++;
+    //                 m.innerHTML = contador_m;
 
-                    if (contador_m == 60) {
-                        contador_m = 0;
-                    }
-                }
+    //                 if (contador_m == 60) {
+    //                     contador_m = 0;
+    //                 }
+    //             }
 
-                s.innerHTML = contador_s;
-                contador_s++;
+    //             s.innerHTML = contador_s;
+    //             contador_s++;
 
-            }, 1000);
-    }
+    //         }, 1000);
+    // }
 
 });

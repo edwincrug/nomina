@@ -26,7 +26,7 @@
             <div class="col-lg-8">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Arbol de carpetas
+                        Árbol de carpetas
                     </div>
                     <div class="panel-body" ng-show="yo" ng-disabled="timbradoPendiente">
                         <ul ng-repeat="filetreed in filetree" style="background-color:white;" id="menu_arbol">
@@ -39,8 +39,8 @@
                         </ul>
                     </div>
                     
-                    <div style="margin-left: 85%; margin-bottom: :15px" ng-show="timbrar" ng-disabled="timbradoPendiente">
-                        <button class="btn" style="background: #F66B06; border-color:#F66B06; color:white" ng-click="realizarTimbrado()">Timbrar</button>
+                    <div style="margin-left: 85%; margin-bottom: :15px" ng-show="timbrar" >
+                        <button class="btn" style="background: #F66B06; border-color:#F66B06; color:white" ng-click="realizarTimbrado()" ng-disabled="timbradoPendiente">Timbrar</button>
                     </div>
                     <div style="color:white">{{rutaCarpeta}}</div>
                 </div>
