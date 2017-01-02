@@ -1,5 +1,7 @@
 {
     "port": 3500,
+    "socketProt": 3800,
+    "dirSocket": "192.168.20.9",
 	"SQL_user": "sa",
     "SQL_password": "S0p0rt3",
     "SQL_server": "192.168.20.9",

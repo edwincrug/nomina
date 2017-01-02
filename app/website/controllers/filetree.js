@@ -27,21 +27,22 @@ var FileTree = function(conf) {
 FileTree.prototype.get_socket = function(req, res, next) {
     console.log('entra a socktet')
     var datos = [];
-    // var envio = JSON.stringify({idEmpresa: req.query.idEmpresa,
-    //                             idTipo: req.query.idTipo,
-    //                             idUsuario:req.query.idUsuario,
-    //                             path:req.query.path,
-    //                             nombreCarpeta:req.query.nombreCarpeta})  
+    var envio = JSON.stringify({idEmpresa: req.query.idEmpresa,
+                                idTipo: req.query.idTipo,
+                                idUsuario:req.query.idUsuario,
+                                path:req.query.path,
+                                nombreCarpeta:req.query.nombreCarpeta})  
 
 //C:\Users\Hp\Desktop\TimbradoNomina\xml\origen
-var envio = JSON.stringify({idEmpresa: 1,
-                                idTipo: 1,
-                                idUsuario: 1,
-                                path:"C:\\Users\\Hp\\Desktop\\TimbradoNomina\\xml\\origen",
-                                nombreCarpeta:"origen"}) 
+// var envio = JSON.stringify({idEmpresa: 1,
+//                                 idTipo: 1,
+//                                 idUsuario: 1,
+//                                 path:"C:\\Users\\Hp\\Desktop\\TimbradoNomina\\xml\\origen",
+//                                 nombreCarpeta:"origen"}) 
+// console.log(envio)
 console.log(envio)
 
-    client.connect(3700, '192.168.20.9', function() {
+    client.connect(3800, '192.168.20.9', function() {
         console.log('Connected');
         client.write(envio);
     });
