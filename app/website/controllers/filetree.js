@@ -41,7 +41,7 @@ var envio = JSON.stringify({idEmpresa: 1,
                                 nombreCarpeta:"origen"}) 
 console.log(envio)
 
-    client.connect(3000, '192.168.50.92', function() {
+    client.connect(3700, '192.168.20.9', function() {
         console.log('Connected');
         client.write(envio);
     });

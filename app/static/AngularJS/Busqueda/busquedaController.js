@@ -123,6 +123,7 @@
                 if (result.data.length > 0) {
                     $scope.tipoNomina = result.data;
                     $scope.activarInputTipoNomina = false;
+                    console.log(tipoNomina)
                 }
             });
         } else {
