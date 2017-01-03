@@ -4,6 +4,7 @@ registrationModule.controller('loginController', function($scope, $rootScope, $l
     $rootScope.menuBusqueda = false;
     $scope.init = function() {
         $rootScope.mostrarMenu = false;
+        closeNav();
     }
     $scope.permisos = function(usuario, contrasena) {
         loginRepository.getPermisos(usuario, contrasena).then(function(result) {

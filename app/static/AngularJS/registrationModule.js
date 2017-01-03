@@ -24,6 +24,7 @@ var registrationModule = angular.module("registrationModule", ["ngRoute", "Local
             templateUrl: 'AngularJS/Templates/busqueda.html', //example 1
             controller: 'busquedaController'
         });
+        $routeProvider.otherwise({redirectTo:'/'});
 
         $locationProvider.html5Mode({
             enabled: true,
