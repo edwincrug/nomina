@@ -28,30 +28,20 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
     var params = [];   //Referencia a la clase para callback
     var self = this;
     var nombreArchivos = [];
+    var files = [];
+    var ruta = req.body.path;
+    var extension = '.pdf';
+    var carpeta = req.body.nombreCarpeta;
     nombreArchivos = req.body.archivos; 
 
-    var files = [
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030303441.pdf', target: '2912201600101001110110030303441.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030309431.pdf', target: '2912201600101001110110030309431.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030314151.pdf', target: '2912201600101001110110030314151.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030314301.pdf', target: '2912201600101001110110030314301.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030317541.pdf', target: '2912201600101001110110030317541.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030322181.pdf', target: '2912201600101001110110030322181.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030323051.pdf', target: '2912201600101001110110030323051.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030338531.pdf', target: '2912201600101001110110030338531.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030338551.pdf', target: '2912201600101001110110030338551.pdf' },
-    { source: 'C:/Desarrollo/xml/2912201600101001110110030331601.pdf', target: '2912201600101001110110030331601.pdf' }
-];
+    nombreArchivos.forEach(function (file, i) {
+    files.push({source:ruta + file.nombreRecibo + extension, target: file.nombreRecibo + extension});
+    });
      
-    nombreArchivos.forEach(function(file, i) {  
-
-
-    }  );
-
-
+   
     var zip = new EasyZip();
     zip.batchAdd(files, function() {
-        zip.writeToFile('C:/Desarrollo/zip/01012017.zip');
+        zip.writeToFile( ruta + carpeta + '.zip');
     });
 
     var nodemailer = require('nodemailer');
@@ -68,11 +58,11 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
         from: '"Fernando Alvarado Luna" <falvaradoluna@gmail.com>', // sender address 
         to: 'falvarado@bism.com.mx', // list of receivers 
         subject: 'Recibos Timbrados', // Subject line 
-        text: 'Se envían adjuntos los archivos timbrados 03 01 2017', // plaintext body 
-        html: '<b>Se envían adjuntos los archivos timbrados 03 01 2017</b>', // html body 
+        text: 'Se envían adjuntos los archivos timbrados ', // plaintext body 
+        html: '<b>Se envían adjuntos los archivos timbrados </b>', // html body 
         attachments: [{ // file on disk as an attachment
-            filename: '01012017.zip',
-            path: 'C:/Desarrollo/zip/01012017.zip' // stream this file
+            filename:  + carpeta + '.zip',
+            path: ruta + carpeta + '.zip' // stream this file
         }]
     };
 
