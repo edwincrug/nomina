@@ -32,6 +32,7 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
     var ruta = req.body.path;
     var extension = '.pdf';
     var carpeta = req.body.nombreCarpeta;
+    var correo = req.body.correo;
     nombreArchivos = req.body.archivos; 
 
     nombreArchivos.forEach(function (file, i) {
@@ -56,7 +57,7 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
 
     var mailOptions = {
         from: '"Fernando Alvarado Luna" <falvaradoluna@gmail.com>', // sender address 
-        to: 'falvarado@bism.com.mx', // list of receivers 
+        to: correo, // list of receivers 
         subject: 'Recibos Timbrados', // Subject line 
         text: 'Se envían adjuntos los archivos timbrados ', // plaintext body 
         html: '<b>Se envían adjuntos los archivos timbrados </b>', // html body 
