@@ -69,7 +69,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
     $scope.realizarTimbrado = function() {
         //var rutaCarpetaModif = $scope.rutaCarpeta.replace(/\\/gi, "\\\\");
-        filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, 1).then(function(result) {
+        filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
                 if (result.data != "") {
                     alertFactory.success('Exito');
                     $scope.procesando = true;

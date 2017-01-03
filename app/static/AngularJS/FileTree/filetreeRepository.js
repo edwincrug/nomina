@@ -1,5 +1,5 @@
 var filetreeURL = global_settings.urlCORS + 'api/filetree/';
-var mailPdfs = global_settings.urlCORS + 'api/zipandmail/';
+//var mailPdfs = global_settings.urlCORS + 'api/zipandmail/';
 
 
 registrationModule.factory('filetreeRepository', function($http) {
@@ -17,7 +17,7 @@ registrationModule.factory('filetreeRepository', function($http) {
                 }
             });
         },
-        getSocket: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta,opcion){
+        getSocket: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta){
             return $http({
                 url:filetreeURL + 'socket/',
                 method:"GET",
@@ -26,34 +26,31 @@ registrationModule.factory('filetreeRepository', function($http) {
                     idTipo: idTipo,
                     idUsuario: idUsuario,
                     path: path,
-                    nombreCarpeta: nombreCarpeta,
-                    opcion:opcion
+                    nombreCarpeta: nombreCarpeta
                 },
                 headers:{
                     'Content-Type':'application/json'
                 }
-            /*});
-*/            console.log(params)
+            });
         },
-        postDocumentosMail: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta,opcion,listaPds){
+        postDocumentosMail: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta,listaPds){
             var objectArchivos ={
                 archivos:listaPds,
                 idEmpresa: idEmpresa,
                 idTipo: idTipo,
                 idUsuario: idUsuario,
                 path: path,
-                nombreCarpeta: nombreCarpeta,
-                opcion:opcion
+                nombreCarpeta: nombreCarpeta
 
             }
-            return $http({
+            /*return $http({
                 url:mailPdfs + 'generaZipMail/',
                 method: "POST",
                 data: objectArchivos,
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
+            });*/
             console.log(objectArchivos)
         }
     };

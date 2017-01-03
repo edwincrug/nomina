@@ -31,10 +31,8 @@ FileTree.prototype.get_socket = function(req, res, next) {
                                 idTipo: req.query.idTipo,
                                 idUsuario:req.query.idUsuario,
                                 path:req.query.path,
-                                nombreCarpeta:req.query.nombreCarpeta,
-                                opcion: req.query.opcion,
-                                NombreImpresora: "RICOH Aficio MP 301 pasillo",
-                                IpImpresora:'http://192.168.50.240:53000'})  
+                                nombreCarpeta:req.query.nombreCarpeta
+                                })  
 
 //C:\Users\Hp\Desktop\TimbradoNomina\xml\origen
 // var envio = JSON.stringify({idEmpresa: 1,
