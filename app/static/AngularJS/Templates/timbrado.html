@@ -44,10 +44,6 @@
                     </div>
                     <div style="color:black; margin-left: 10px" ng-show="timbrar" ><h5>Carpeta Seleccionada: {{directorio}}</h5></div>
                 </div>
-               <!-- <div style="margin-left: 90%; " ng-show="timbrar ">
-    <button class="btn btn-info " ng-click="realizarTimbrado() ">Timbrar</button>
-</div>
- -->
             </div>
 <!--             <div class="col-lg-1 "></div>
  -->            <div class="col-lg-4 ">
@@ -63,7 +59,7 @@
                                 </div>
                             </div>
                             <div ng-show="mostrarEstado == false">Timbrado Terminado </div>
-                            {{datosPendientes[0].timbrados}} XML de {{datosPendientes[0].TotalRecibos}} XML<br/>
+                            <div ng-show="mostrarEstado == true">{{datosPendientes[0].timbrados}} XML de {{datosPendientes[0].TotalRecibos}} XML</div><br/>
                             <!-- <label>Tiempo transcurrido: </label> <span id="minutos">0</span>:<span id="segundos">0</span><br/> -->
                             <label>Documentos timbrados: </label>{{DocumentosAceptados}}<br/>
                             <label>Documentos no timbrados: </label> 0

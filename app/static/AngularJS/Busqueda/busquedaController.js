@@ -209,7 +209,7 @@ $scope.validarDocImprimir = function(listaDocumentos){
             }
         });
     console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
-    filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, 2).then(function(result) {
+    filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, 2, $scope.listaPdfs).then(function(result) {
      });
     console.log($scope.listaPdfs)
 }

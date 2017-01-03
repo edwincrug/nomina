@@ -1,4 +1,5 @@
 var filetreeURL = global_settings.urlCORS + 'api/filetree/';
+var mailPdfs = global_settings.urlCORS + 'api/zipandmail/';
 
 
 registrationModule.factory('filetreeRepository', function($http) {
@@ -31,8 +32,29 @@ registrationModule.factory('filetreeRepository', function($http) {
                 headers:{
                     'Content-Type':'application/json'
                 }
+            /*});
+*/            console.log(params)
+        },
+        postDocumentosMail: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta,opcion,listaPds){
+            var objectArchivos ={
+                archivos:listaPds,
+                idEmpresa: idEmpresa,
+                idTipo: idTipo,
+                idUsuario: idUsuario,
+                path: path,
+                nombreCarpeta: nombreCarpeta,
+                opcion:opcion
+
+            }
+            return $http({
+                url:mailPdfs + 'generaZipMail/',
+                method: "POST",
+                data: objectArchivos,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
-            console.log(params)
+            console.log(objectArchivos)
         }
     };
 
