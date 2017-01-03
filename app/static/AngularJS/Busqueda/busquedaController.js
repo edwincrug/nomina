@@ -3,7 +3,7 @@
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
-    $scope.timbrados='';
+    $scope.timbrados = '';
     $scope.init = function() {
         openCloseNav();
         $scope.getGrupo(1);
@@ -66,11 +66,14 @@
         //**********Inicia Consigue el tipo de Agencia ligadas a la Empresa**********//
     $scope.cargaTipoAgencia = function(idempresa) {
         if (idempresa != null) {
+            $scope.idempresaSeleccionada = idempresa;
             empresaVacia();
             filtrosRepository.getAgencia(idempresa).then(function(result) {
                 if (result.data.length > 0) {
                     $scope.agencias = result.data;
                     $scope.activarInputAgencia = false;
+                    $scope.activarInputTipoNomina = false;
+                    $scope.getTipoNomina($scope.idempresaSeleccionada);
                 }
             });
         } else {
@@ -86,7 +89,7 @@
             $scope.activarInputAgencia = true;
             $scope.activarInputDepartamento = true;
             $scope.activarInputTipoNomina = true;
-            $scope.activarInputPeriodo = true;
+            $scope.activarInputPeriodo = false;
         }
         //**********Termina Consigue el tipo de Agencia ligadas a la Empresa**********//
         //**********Inicia Consigue el tipo de Departamento ligadas a la Empresa y Sucursal**********//
@@ -97,7 +100,8 @@
                 if (result.data.length > 0) {
                     $scope.departamento = result.data;
                     $scope.activarInputDepartamento = false;
-                    $scope.activarInputTipoNomina = false;
+                    $scope.activarInputPeriodo = false;
+
                 }
             });
         } else {
@@ -111,19 +115,22 @@
             $scope.filtros.periodo = null;
             $scope.activarInputDepartamento = true;
             $scope.activarInputTipoNomina = true;
-            $scope.activarInputPeriodo = true;
-            $scope.activarInputPeriodo = true;
+            $scope.activarInputPeriodo = false;
+            //$scope.activarInputPeriodo = true;
         }
         //**********Termina Consigue el tipo de Departamento ligadas a la Empresa y Sucursal**********//
         //**********Inicia Consigue el tipo de Nomina **********//
-    $scope.getTipoNomina = function(iddepartamento) {
-        if (iddepartamento != null) {
+    $scope.getTipoNomina = function(idEmpresa) {
+        if (idEmpresa != null) {
+
+               //$('#tblTimbradoExitoso').DataTable().destroy();
+               //$('#tblSinTimbrar').DataTable().destroy();
             tipoNominaVacia();
             filtrosRepository.getTipoNomina().then(function(result) {
                 if (result.data.length > 0) {
                     $scope.tipoNomina = result.data;
                     $scope.activarInputTipoNomina = false;
-                    console.log(tipoNomina)
+                    console.log($scope.tipoNomina)
                 }
             });
         } else {
@@ -131,6 +138,7 @@
             alertFactory.warning('Seleccioné un Departamento');
         }
     }
+
     var tipoNominaVacia = function() {
             $scope.filtros.idTipoNomina = null;
             $scope.filtros.periodo = null;
@@ -138,14 +146,17 @@
         //**********Termina Consigue el tipo de Nomina **********//
         //**********Inicia Activa el input de periodo************//
     $scope.activaPeriodo = function(agencia) {
-            if(agencia!=null){
+            if (agencia != null) {
                 $scope.activarInputPeriodo = false;
-            }            
+            }
         }
         //**********Termina Activa el input de periodo************//
         //**********Inicia Verifica si es una fecha************//
     $scope.verificaFecha = function(filtro) {
+            $('#tblTimbradoExitoso').DataTable().destroy();
+            $('#tblSinTimbrar').DataTable().destroy();
             if (filtro.periodo.length == 8) {
+               
                 var fechaActual = new Date();
                 $scope.fecha = filtro.periodo.substr(2, 2) + '-' + filtro.periodo.substr(0, 2) + '-' + filtro.periodo.substr(4, 4);
                 var fechaCarpeta = new Date($scope.fecha);
@@ -154,8 +165,14 @@
                     if ($scope.periodoFecha === true) {
                         alertFactory.warning('Aqui empezara la busqueda')
                         busquedaRepository.getTimbrados(filtro).then(function(result) {
-                            console.log(result);
-                            $scope.timbrados=result.data;
+                            $scope.timbrados = result.data;
+                            $scope.sinTimbrar = result.data;
+                            setTimeout(function() {
+                            $scope.setTablePaging('tblTimbradoExitoso');
+                            $scope.setTablePaging('tblSinTimbrar');
+                            $("#tblTimbradoExitoso_filter").removeClass("dataTables_info").addClass("hide-div");
+                            $("#tblSinTimbrar_filter").removeClass("dataTables_info").addClass("hide-div");
+                            }, 1500);
                         });
                     }
                 } else {
@@ -164,5 +181,36 @@
                 console.log($scope.periodoFecha);
             }
         }
+
+$scope.validarDocImprimir = function(listaDocumentos){
+    $scope.contadorSel = 0;
+    angular.forEach(listaDocumentos, function(value, key) {
+            if (value.check == true) {
+                $scope.contadorSel ++;
+                console.log('entreee :)')
+            }
+        });
+    console.log($scope.contadorSel)
+}
+
+
         //**********Termina Verifica si es una fecha************//
+    $scope.setTablePaging = function(idTable) {
+        $('#' + idTable).DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [{
+                extend: 'excel',
+                title: 'ExampleFile'
+            }, {
+                extend: 'print',
+                customize: function(win) {
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+                    $(win.document.body).find('table')
+                        .addClass('compact')
+                        .css('font-size', 'inherit');
+                }
+            }]
+        });
+    };
 });
