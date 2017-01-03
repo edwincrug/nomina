@@ -194,7 +194,9 @@
             }
         }
 
-$scope.enviarCorreo = function(listaDocumentos){
+$scope.enviarCorreo = function(listaDocumentos,correo){
+    $scope.correo = correo;
+    console.log($scope.correo)
     $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrado/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
     $scope.contadorSel = 0;
     angular.forEach(listaDocumentos, function(value, key) {
@@ -209,7 +211,12 @@ $scope.enviarCorreo = function(listaDocumentos){
             }
         });
     console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
-    filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs).then(function(result) {
+    filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs,$scope.correo).then(function(result) {
+        if(result.data ==1){
+            console.log(result)
+        }else{
+            console.log(nada)
+        }
      });
     console.log($scope.listaPdfs)
 }

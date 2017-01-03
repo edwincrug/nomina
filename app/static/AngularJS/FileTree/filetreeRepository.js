@@ -33,14 +33,15 @@ registrationModule.factory('filetreeRepository', function($http) {
                 }
             });
         },
-        postDocumentosMail: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta,listaPds){
+        postDocumentosMail: function(idEmpresa,idTipo,idUsuario,path,nombreCarpeta,listaPds,correo){
             var objectArchivos ={
                 archivos:listaPds,
                 idEmpresa: idEmpresa,
                 idTipo: idTipo,
                 idUsuario: idUsuario,
                 path: path,
-                nombreCarpeta: nombreCarpeta
+                nombreCarpeta: nombreCarpeta,
+                correo:correo
 
             }
             return $http({
