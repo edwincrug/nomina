@@ -1,5 +1,5 @@
-var LoginView = require('../views/reference'),
-    LoginModel = require('../models/dataAccess'),
+var ZipandMailView = require('../views/reference'),
+    ZipandMailModel = require('../models/dataAccess'),
     moment = require('moment');
 var phantom = require('phantom');
 var path = require('path');

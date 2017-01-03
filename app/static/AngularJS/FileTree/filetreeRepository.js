@@ -1,5 +1,5 @@
 var filetreeURL = global_settings.urlCORS + 'api/filetree/';
-//var mailPdfs = global_settings.urlCORS + 'api/zipandmail/';
+var mailPdfs = global_settings.urlCORS + 'api/zipandmail/';
 
 
 registrationModule.factory('filetreeRepository', function($http) {
