@@ -43,14 +43,14 @@ registrationModule.factory('filetreeRepository', function($http) {
                 nombreCarpeta: nombreCarpeta
 
             }
-            /*return $http({
+            return $http({
                 url:mailPdfs + 'generaZipMail/',
                 method: "POST",
                 data: objectArchivos,
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });*/
+            });
             console.log(objectArchivos)
         }
     };

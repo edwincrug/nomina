@@ -194,7 +194,7 @@
             }
         }
 
-$scope.validarDocImprimir = function(listaDocumentos){
+$scope.enviarCorreo = function(listaDocumentos){
     $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrado/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
     $scope.contadorSel = 0;
     angular.forEach(listaDocumentos, function(value, key) {
