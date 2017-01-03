@@ -1,4 +1,4 @@
-﻿registrationModule.controller('busquedaController', function($scope, $rootScope, alertFactory, busquedaRepository, filetreeRepository,localStorageService, filtrosRepository) {
+﻿registrationModule.controller('busquedaController', function($scope, $rootScope,$routeParams, alertFactory, busquedaRepository, filetreeRepository,localStorageService, filtrosRepository) {
     $scope.filtros = null;
     $scope.periodoFecha = '';
     $scope.fecha = '';
@@ -9,6 +9,7 @@
     $scope.init = function() {
         openCloseNav();
         $scope.getGrupo(1);
+        console.log('Estoy en busqueda',$routeParams.idPerfil)
         variablesInput();
     }
     var variablesInput = function() {

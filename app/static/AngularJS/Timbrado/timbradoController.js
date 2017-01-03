@@ -1,5 +1,5 @@
-registrationModule.controller('timbradoController', function($scope, $rootScope, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
-
+registrationModule.controller('timbradoController', function($scope, $rootScope,$routeParams, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
+    $rootScope.mostrarMenu = true;
     $scope.idUsuario = 2;
     $scope.procesando = false;
     $scope.rutaCarpeta = ""
@@ -18,6 +18,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         openCloseNav()
         $scope.getEmpresa(1);
         $scope.getTipoNomina();
+        console.log('Estoy en timbrado',$routeParams.idPerfil)
         //$scope.getPermisos();
         setInterval(function() { $scope.getPermisos(); }, 1000);
     }
@@ -57,7 +58,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         $scope.timbrar = true;
         $scope.rutaCarpeta = obj.path;
         var cadena = obj.path;
-        $scope.directorio = cadena.substr((cadena.length) -8, 8)
+        $scope.directorio = cadena.substr((cadena.length) - 8, 8)
         console.log($scope.directorio)
     }
 
@@ -69,14 +70,14 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.realizarTimbrado = function() {
         //var rutaCarpetaModif = $scope.rutaCarpeta.replace(/\\/gi, "\\\\");
         filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, 1).then(function(result) {
-            if (result.data != "") {
-                alertFactory.success('Exito');
-                $scope.procesando = true;
-            } else {
-                alertFactory.warning('no se pudo realizar');
-            }
-        })
-        //alertFactory.error('esperando');
+                if (result.data != "") {
+                    alertFactory.success('Exito');
+                    $scope.procesando = true;
+                } else {
+                    alertFactory.warning('no se pudo realizar');
+                }
+            })
+            //alertFactory.error('esperando');
     }
 
     $scope.getPermisos = function() {
