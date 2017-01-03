@@ -196,7 +196,7 @@
 
 $scope.enviarCorreo = function(listaDocumentos,correo){
     $scope.correo = correo;
-    console.log($scope.correo)
+    //console.log($scope.correo)
     $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrados/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
     $scope.contadorSel = 0;
     angular.forEach(listaDocumentos, function(value, key) {
@@ -210,23 +210,38 @@ $scope.enviarCorreo = function(listaDocumentos,correo){
                 console.log('entreee :)')
             }
         });
-    console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
-    filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs,$scope.correo).then(function(result) {
+    //console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
+     filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs,$scope.correo).then(function(result) {
         if(result.data ==1){
             console.log(result)
+            $('#modalLotes').modal('hide');
+            
             alertFactory.success('Correo enviado');
             $scope.correo = "";
             $scope.rutaCarpeta = "";
             $scope.contadorSel = 0;
-            //$scope.init()
 
-            $('#modalLotes').modal('hide');
+            //$scope.init()
+            
 
         }else{
             console.log(nada)
         }
      });
-    console.log($scope.listaPdfs)
+
+            $('#modalLotes').modal('hide');
+            
+            alertFactory.success('Correo enviado');
+
+            $('#tblTimbradoExitoso').DataTable().destroy();
+            $('#tblSinTimbrar').DataTable().destroy();
+            //$scope.filtro.correo = "";
+            $scope.correo = "";
+            $scope.rutaCarpeta = "";
+            $scope.contadorSel = 0;
+            $scope.listaPdfs=[];
+            $scope.filtros = null;
+            $scope.timbrados = [];
 }
 
 

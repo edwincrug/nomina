@@ -76,7 +76,8 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
 
 
     object.error = null;            
-    object.result = 1;            
+    object.result = 1; 
+    console.log(object.result)           
 }
 
 
