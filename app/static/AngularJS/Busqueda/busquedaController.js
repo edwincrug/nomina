@@ -1,9 +1,11 @@
-﻿registrationModule.controller('busquedaController', function($scope, $rootScope, alertFactory, busquedaRepository, localStorageService, filtrosRepository) {
+﻿registrationModule.controller('busquedaController', function($scope, $rootScope, alertFactory, busquedaRepository, filetreeRepository,localStorageService, filtrosRepository) {
     $scope.filtros = null;
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
     $scope.timbrados = '';
+    $scope.listaPdfs =[];
+    $scope.idUsuario = 2
     $scope.init = function() {
         openCloseNav();
         $scope.getGrupo(1);
@@ -65,6 +67,7 @@
         //**********Termina Consigue las Empresas ligadas al Grupo**********//
         //**********Inicia Consigue el tipo de Agencia ligadas a la Empresa**********//
     $scope.cargaTipoAgencia = function(idempresa) {
+        //$scope.idEmpresa = idempresa;
         if (idempresa != null) {
             $scope.idempresaSeleccionada = idempresa;
             empresaVacia();
@@ -153,6 +156,14 @@
         //**********Termina Activa el input de periodo************//
         //**********Inicia Verifica si es una fecha************//
     $scope.verificaFecha = function(filtro) {
+        $scope.idEmpresa = filtro.idTipoEmpresa;
+        $scope.idTipoNomina = filtro.idTipoNomina;
+        $scope.idUsuario = 2;
+        $scope.nombre = filtro.periodo;
+
+        //C:\Nomina_Timbrado\Origen\Semanal\001
+
+        //console.log(filtro)
             $('#tblTimbradoExitoso').DataTable().destroy();
             $('#tblSinTimbrar').DataTable().destroy();
             if (filtro.periodo.length == 8) {
@@ -183,14 +194,23 @@
         }
 
 $scope.validarDocImprimir = function(listaDocumentos){
+    $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrado/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
     $scope.contadorSel = 0;
     angular.forEach(listaDocumentos, function(value, key) {
             if (value.check == true) {
+                $scope.listaPdfs.push({
+                        nombreRecibo:value.nombreRecibo,
+                        idTipoNomina: value.idTipoNomina,
+                        nombreNomina: value.NombreNomina
+                })
                 $scope.contadorSel ++;
                 console.log('entreee :)')
             }
         });
-    console.log($scope.contadorSel)
+    console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
+    filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, 2).then(function(result) {
+     });
+    console.log($scope.listaPdfs)
 }
 
 

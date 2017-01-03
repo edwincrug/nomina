@@ -30,9 +30,9 @@
                     </div>
                     <div class="panel-body" ng-show="yo" ng-disabled="timbradoPendiente">
                         <ul ng-repeat="filetreed in filetree" style="background-color:white;" id="menu_arbol">
-                            <li id="padre" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreed.datos)"><a style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.datos.name}}</a>
+                            <li id="padre" style="display: block; text-decoration: none;" ><a style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos);ruta(filetreed.datos)"><span class="glyphicon glyphicon-folder-open"></span>  {{filetreed.datos.name}}</a>
                                 <ul id="{{filetreed.datos.name}}" ng-repeat="filetreechildren in filetreed.datos.children" style="background-color:white">
-                                    <li id="{{filetreed.datos.name}}" style="display: block; text-decoration: none;" ng-dblclick="ruta(filetreechildren)">
+                                    <li id="{{filetreed.datos.name}}" style="display: block; text-decoration: none;">
                                         <a style="cursor:pointer; color:black" ng-click="seleccionarTimbre(filetreed.datos)><span class=" glyphicon glyphicon-list-alt "></span>  {{filetreechildren.name}}</a></li>
                                 </ul>
                             </li>
@@ -42,29 +42,30 @@
                     <div style="margin-left: 85%; margin-bottom: :15px" ng-show="timbrar" >
                         <button class="btn" style="background: #F66B06; border-color:#F66B06; color:white" ng-click="realizarTimbrado()" ng-disabled="timbradoPendiente">Timbrar</button>
                     </div>
-                    <div style="color:white">{{rutaCarpeta}}</div>
+                    <div style="color:black; margin-left: 10px" ng-show="timbrar" ><h5>Carpeta Seleccionada: {{directorio}}</h5></div>
                 </div>
                <!-- <div style="margin-left: 90%; " ng-show="timbrar ">
     <button class="btn btn-info " ng-click="realizarTimbrado() ">Timbrar</button>
 </div>
  -->
             </div>
-            <div class="col-lg-1 "></div>
-            <div class="col-lg-3 ">
+<!--             <div class="col-lg-1 "></div>
+ -->            <div class="col-lg-4 ">
                <div class="panel " ng-show="procesando " style="border-color:#004E8C ">
                     <div class="panel-heading " style="background: #004E8C;color: white ">
                             {{mensajePanel}}
                     </div>
                         <div class="panel-body ">
-                            Empresa/Periodo
-                            <div class="progress progress-striped active ">
+                            <p>Empresa: {{NombreEmpresa}}<p> <p>Periodo: {{NombreNomina}}<p>
+                            <div class="progress progress-striped active " ng-show="mostrarEstado == true">
                                 <div style="width: {{porcentaje}}% " aria-valuemax="100 " aria-valuemin="0 " aria-valuenow="75 " role="progressbar " class="progress-bar progress-bar-sucess ">
-                                    <span class="sr-only "></span> {{porcentaje}}%
+                                    <span class="sr-only "></span> {{porcentaje | number:2}}%
                                 </div>
                             </div>
-                            {{datosPendientes[0].timbrados}} de {{datosPendientes[0].TotalRecibos}}<br/>
+                            <div ng-show="mostrarEstado == false">Timbrado Terminado </div>
+                            {{datosPendientes[0].timbrados}} XML de {{datosPendientes[0].TotalRecibos}} XML<br/>
                             <!-- <label>Tiempo transcurrido: </label> <span id="minutos">0</span>:<span id="segundos">0</span><br/> -->
-                            <label>Documentos timbrados: </label> 0<br/>
+                            <label>Documentos timbrados: </label>{{DocumentosAceptados}}<br/>
                             <label>Documentos no timbrados: </label> 0
                         </div>
                 </div>
