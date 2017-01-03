@@ -175,7 +175,7 @@
                 $scope.periodoFecha = fechaCarpeta instanceof Date && !isNaN(fechaCarpeta.valueOf());
                 if (fechaCarpeta <= fechaActual) {
                     if ($scope.periodoFecha === true) {
-                        alertFactory.warning('Aqui empezara la busqueda')
+                        alertFactory.warning('Buscando...')
                         busquedaRepository.getTimbrados(filtro).then(function(result) {
                             $scope.timbrados = result.data;
                             $scope.sinTimbrar = result.data;
@@ -197,7 +197,7 @@
 $scope.enviarCorreo = function(listaDocumentos,correo){
     $scope.correo = correo;
     console.log($scope.correo)
-    $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrado/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
+    $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrados/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
     $scope.contadorSel = 0;
     angular.forEach(listaDocumentos, function(value, key) {
             if (value.check == true) {
@@ -214,6 +214,14 @@ $scope.enviarCorreo = function(listaDocumentos,correo){
     filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs,$scope.correo).then(function(result) {
         if(result.data ==1){
             console.log(result)
+            alertFactory.success('Correo enviado');
+            $scope.correo = "";
+            $scope.rutaCarpeta = "";
+            $scope.contadorSel = 0;
+            //$scope.init()
+
+            $('#modalLotes').modal('hide');
+
         }else{
             console.log(nada)
         }
