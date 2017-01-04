@@ -32,16 +32,7 @@ FileTree.prototype.get_socket = function(req, res, next) {
                                 idUsuario:req.query.idUsuario,
                                 path:req.query.path,
                                 nombreCarpeta:req.query.nombreCarpeta
-                                })  
-
-//C:\Users\Hp\Desktop\TimbradoNomina\xml\origen
-// var envio = JSON.stringify({idEmpresa: 1,
-//                                 idTipo: 1,
-//                                 idUsuario: 1,
-//                                 path:"C:\\Users\\Hp\\Desktop\\TimbradoNomina\\xml\\origen",
-//                                 nombreCarpeta:"origen"}) 
-// console.log(envio)
-console.log(envio)
+                                });
 
     client.connect(3800, '192.168.20.9', function() {
         console.log('Connected');
@@ -51,6 +42,7 @@ console.log(envio)
     client.on('data', function(data) {
         console.log('Received: ' + data);
         datos = data.toString('utf8');
+
         res.json({
         data: datos
     });
@@ -61,7 +53,6 @@ console.log(envio)
     client.on('close', function() {
         console.log('Connection closed');
     });
-console.log(envio)
     
 }
 

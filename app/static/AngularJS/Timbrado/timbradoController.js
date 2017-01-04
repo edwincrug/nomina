@@ -1,4 +1,4 @@
-registrationModule.controller('timbradoController', function($scope, $rootScope,$routeParams, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
+registrationModule.controller('timbradoController', function($scope, $rootScope, $routeParams, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
     $rootScope.mostrarMenu = true;
     $scope.idUsuario = $routeParams.idUsuario
     $scope.procesando = false;
@@ -13,13 +13,14 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.mensajePanel = "";
 
     $scope.init = function() {
+        getIPs(function(ip) { console.log(ip); });
         //$scope.carga();
         $scope.yo = false;
         openCloseNav()
         $scope.getEmpresa(1);
         $scope.getTipoNomina();
-        console.log('Estoy en timbrado',$routeParams.idPerfil)
-        //$scope.getPermisos();
+        console.log('Estoy en timbrado', $routeParams.idPerfil)
+            //$scope.getPermisos();
         setInterval(function() { $scope.getPermisos(); }, 1500);
     }
 
@@ -117,28 +118,81 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         });
     }
 
-    // $scope.carga = function() {
-    //     contador_s = 0;
-    //     contador_m = 0;
-    //     s = document.getElementById("segundos");
-    //     m = document.getElementById("minutos");
+    ///////////////////////////////OBTENER IP DEL EQUIPO////////////////////////////////////////// 
 
-    //     cronometro = setInterval(
-    //         function() {
-    //             if (contador_s == 60) {
-    //                 contador_s = 0;
-    //                 contador_m++;
-    //                 m.innerHTML = contador_m;
+    function getIPs(callback) {
+        var ip_dups = {};
 
-    //                 if (contador_m == 60) {
-    //                     contador_m = 0;
-    //                 }
-    //             }
+        //compatibility for firefox and chrome
+        var RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+        var useWebKit = !!window.webkitRTCPeerConnection;
 
-    //             s.innerHTML = contador_s;
-    //             contador_s++;
+        //bypass naive webrtc blocking using an iframe
+        if (!RTCPeerConnection) {
+            //NOTE: you need to have an iframe in the page right above the script tag
+            //
+            //<iframe id="iframe" sandbox="allow-same-origin" style="display: none"></iframe>
+            //<script>...getIPs called in here...
+            //
+            var win = iframe.contentWindow;
+            RTCPeerConnection = win.RTCPeerConnection || win.mozRTCPeerConnection || win.webkitRTCPeerConnection;
+            useWebKit = !!win.webkitRTCPeerConnection;
+        }
 
-    //         }, 1000);
-    // }
+        //minimal requirements for data connection
+        var mediaConstraints = {
+            optional: [{ RtpDataChannels: true }]
+        };
 
+        var servers = { iceServers: [{ urls: "stun:stun.services.mozilla.com" }] };
+
+        //construct a new RTCPeerConnection
+        var pc = new RTCPeerConnection(servers, mediaConstraints);
+
+        function handleCandidate(candidate) {
+            //match just the IP address
+            var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/
+            var ip_addr = ip_regex.exec(candidate)[1];
+
+            //remove duplicates
+            if (ip_dups[ip_addr] === undefined)
+                callback(ip_addr);
+
+            ip_dups[ip_addr] = true;
+        }
+
+        //listen for candidate events
+        pc.onicecandidate = function(ice) {
+
+            //skip non-candidate events
+            if (ice.candidate)
+                handleCandidate(ice.candidate.candidate);
+        };
+
+        //create a bogus data channel
+        pc.createDataChannel("");
+
+        //create an offer sdp
+        pc.createOffer(function(result) {
+
+            //trigger the stun server request
+            pc.setLocalDescription(result, function() {}, function() {});
+
+        }, function() {});
+
+        //wait for a while to let everything done
+        setTimeout(function() {
+            //read candidate info from local description
+            var lines = pc.localDescription.sdp.split('\n');
+
+            lines.forEach(function(line) {
+                if (line.indexOf('a=candidate:') === 0)
+                    handleCandidate(line);
+            });
+        }, 1000);
+    }
+
+    //Test: Print the IP addresses into the console
+    
+    ////////////////////////
 });

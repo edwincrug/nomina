@@ -1,15 +1,18 @@
-﻿registrationModule.controller('busquedaController', function($scope, $rootScope,$routeParams, alertFactory, busquedaRepository, filetreeRepository,localStorageService, filtrosRepository) {
+﻿registrationModule.controller('busquedaController', function($scope, $rootScope, $routeParams, alertFactory, busquedaRepository, filetreeRepository, localStorageService, filtrosRepository) {
     $scope.filtros = null;
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
     $scope.timbrados = '';
-    $scope.listaPdfs =[];
+    $scope.listaPdfs = [];
     $scope.idUsuario = $routeParams.idUsuario
     $scope.init = function() {
+        $scope.mostrarTodos = true
+        $scope.mostrarIndi = false
+         $scope.enviarTodo = true;
         openCloseNav();
         $scope.getGrupo(1);
-        console.log('Estoy en busqueda',$routeParams.idPerfil + ' idUsuario' + $routeParams.idUsuario)
+        console.log('Estoy en busqueda', $routeParams.idPerfil + ' idUsuario' + $routeParams.idUsuario)
         variablesInput();
     }
     var variablesInput = function() {
@@ -127,8 +130,8 @@
     $scope.getTipoNomina = function(idEmpresa) {
         if (idEmpresa != null) {
 
-               //$('#tblTimbradoExitoso').DataTable().destroy();
-               //$('#tblSinTimbrar').DataTable().destroy();
+            //$('#tblTimbradoExitoso').DataTable().destroy();
+            //$('#tblSinTimbrar').DataTable().destroy();
             tipoNominaVacia();
             filtrosRepository.getTipoNomina().then(function(result) {
                 if (result.data.length > 0) {
@@ -165,87 +168,119 @@
         //C:\Nomina_Timbrado\Origen\Semanal\001
 
         //console.log(filtro)
-            $('#tblTimbradoExitoso').DataTable().destroy();
-            $('#tblSinTimbrar').DataTable().destroy();
-            if (filtro.periodo.length == 8) {
-               
-                var fechaActual = new Date();
-                $scope.fecha = filtro.periodo.substr(2, 2) + '-' + filtro.periodo.substr(0, 2) + '-' + filtro.periodo.substr(4, 4);
-                var fechaCarpeta = new Date($scope.fecha);
-                $scope.periodoFecha = fechaCarpeta instanceof Date && !isNaN(fechaCarpeta.valueOf());
-                if (fechaCarpeta <= fechaActual) {
-                    if ($scope.periodoFecha === true) {
-                        alertFactory.warning('Buscando...')
-                        busquedaRepository.getTimbrados(filtro).then(function(result) {
-                            $scope.timbrados = result.data;
-                            $scope.sinTimbrar = result.data;
-                            setTimeout(function() {
+        $('#tblTimbradoExitoso').DataTable().destroy();
+        $('#tblSinTimbrar').DataTable().destroy();
+        if (filtro.periodo.length == 8) {
+
+            var fechaActual = new Date();
+            $scope.fecha = filtro.periodo.substr(2, 2) + '-' + filtro.periodo.substr(0, 2) + '-' + filtro.periodo.substr(4, 4);
+            var fechaCarpeta = new Date($scope.fecha);
+            $scope.periodoFecha = fechaCarpeta instanceof Date && !isNaN(fechaCarpeta.valueOf());
+            if (fechaCarpeta <= fechaActual) {
+                if ($scope.periodoFecha === true) {
+                    alertFactory.warning('Buscando...')
+                    busquedaRepository.getTimbrados(filtro).then(function(result) {
+                        $scope.timbrados = result.data;
+                        $scope.sinTimbrar = result.data;
+                        setTimeout(function() {
                             $scope.setTablePaging('tblTimbradoExitoso');
                             $scope.setTablePaging('tblSinTimbrar');
                             $("#tblTimbradoExitoso_filter").removeClass("dataTables_info").addClass("hide-div");
                             $("#tblSinTimbrar_filter").removeClass("dataTables_info").addClass("hide-div");
-                            }, 1500);
-                        });
-                    }
-                } else {
-                    alertFactory.warning('El periodo es incorrecto');
+                        }, 1500);
+                    });
                 }
-                console.log($scope.periodoFecha);
+            } else {
+                alertFactory.warning('El periodo es incorrecto');
             }
+            console.log($scope.periodoFecha);
         }
+    }
 
-$scope.enviarCorreo = function(listaDocumentos,correo){
-    $scope.correo = correo;
-    //console.log($scope.correo)
-    $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrados/"+listaDocumentos[0].descripcionNomina+'/'+listaDocumentos[0].ClaveTimbrado+"/"+$scope.nombre+'/'
-    $scope.contadorSel = 0;
-    angular.forEach(listaDocumentos, function(value, key) {
+    $scope.enviarCorreo = function(listaDocumentos, correo) {
+        $scope.correo = correo;
+        //console.log($scope.correo)
+        $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrados/" + listaDocumentos[0].descripcionNomina + '/' + listaDocumentos[0].ClaveTimbrado + "/" + $scope.nombre + '/'
+        $scope.contadorSel = 0;
+        angular.forEach(listaDocumentos, function(value, key) {
             if (value.check == true) {
                 $scope.listaPdfs.push({
-                        nombreRecibo:value.nombreRecibo,
-                        idTipoNomina: value.idTipoNomina,
-                        nombreNomina: value.NombreNomina
+                    nombreRecibo: value.nombreRecibo,
+                    idTipoNomina: value.idTipoNomina,
+                    nombreNomina: value.NombreNomina
                 })
-                $scope.contadorSel ++;
+                $scope.contadorSel++;
                 console.log('entreee :)')
             }
         });
-    //console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
-     filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs,$scope.correo).then(function(result) {
-        if(result.data ==1){
-            console.log(result)
-            $('#modalLotes').modal('hide');
-            
-            alertFactory.success('Correo enviado');
-            $scope.correo = "";
-            $scope.rutaCarpeta = "";
-            $scope.contadorSel = 0;
+        //console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
+        filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs, $scope.correo).then(function(result) {
+            if (result.data == 1) {
+                console.log(result)
+                $('#modalLotes').modal('hide');
 
-            //$scope.init()
-            
+                alertFactory.success('Correo enviado');
+                $scope.correo = "";
+                $scope.rutaCarpeta = "";
+                $scope.contadorSel = 0;
+                //$scope.init()
+            } else {
+                console.log(nada)
+            }
+        });
 
-        }else{
-            console.log(nada)
+        $('#modalLotes').modal('hide');
+
+        alertFactory.success('Correo enviado');
+
+        $('#tblTimbradoExitoso').DataTable().destroy();
+        $('#tblSinTimbrar').DataTable().destroy();
+        //$scope.filtro.correo = "";
+        $scope.correo = "";
+        $scope.rutaCarpeta = "";
+        $scope.contadorSel = 0;
+        $scope.listaPdfs = [];
+        $scope.filtros = null;
+        $scope.timbrados = [];
+    }
+
+
+    // ************* Imprimir *****************//
+    $scope.seleccionarDocumentosTodo = function(timbrados) {
+        $scope.enviarTodo = false;
+        $scope.mostrarTodos = false
+        $scope.mostrarIndi = true
+        //$scope.estatusImpresion = 1
+        $scope.ip = getIPs(function(ip) { console.log(ip); });
+        $scope.rutaCarpeta = timbrados[0].descripcionNomina + '/' + timbrados[0].ClaveTimbrado + "/" + $scope.nombre + '/'
+        for (var i = 0; i < timbrados.length; i++) {
+            if (timbrados[i].estatusTimbrado == 100) {
+                $scope.listaPdfs.push({
+                    nombreRecibo: timbrados[i].nombreRecibo,
+                    idTipoNomina: timbrados[i].idTipoNomina,
+                    nombreNomina: timbrados[i].NombreNomina
+                })
+            }
         }
-     });
-
-            $('#modalLotes').modal('hide');
-            
-            alertFactory.success('Correo enviado');
-
-            $('#tblTimbradoExitoso').DataTable().destroy();
-            $('#tblSinTimbrar').DataTable().destroy();
-            //$scope.filtro.correo = "";
-            $scope.correo = "";
-            $scope.rutaCarpeta = "";
-            $scope.contadorSel = 0;
-            $scope.listaPdfs=[];
-            $scope.filtros = null;
-            $scope.timbrados = [];
-}
+        console.log($scope.listaPdfs.length + ' '+ $scope.rutaCarpeta +' '+ $scope.ip)
+    }
 
 
-        //**********Termina Verifica si es una fecha************//
+
+    $scope.seleccionarDocumentos = function() {
+        $scope.enviarTodo = true;
+        $scope.mostrarTodos = true;
+        $scope.mostrarIndi = false
+        $scope.listaPdfs = [];
+        $scope.rutaCarpeta = ''
+        console.log($scope.listaPdfs.length + ' '+ $scope.rutaCarpeta)
+    }
+
+    $scope.imprimirPdfs = function() {
+
+    }
+
+    //********** Crear tabla ************//
     $scope.setTablePaging = function(idTable) {
         $('#' + idTable).DataTable({
             dom: '<"html5buttons"B>lTfgitp',
@@ -264,4 +299,78 @@ $scope.enviarCorreo = function(listaDocumentos,correo){
             }]
         });
     };
+
+    ///////////////// Busqueda de Ip//////////////////
+    function getIPs(callback) {
+        var ip_dups = {};
+
+        //compatibility for firefox and chrome
+        var RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+        var useWebKit = !!window.webkitRTCPeerConnection;
+
+        //bypass naive webrtc blocking using an iframe
+        if (!RTCPeerConnection) {
+            //NOTE: you need to have an iframe in the page right above the script tag
+            //
+            //<iframe id="iframe" sandbox="allow-same-origin" style="display: none"></iframe>
+            //<script>...getIPs called in here...
+            //
+            var win = iframe.contentWindow;
+            RTCPeerConnection = win.RTCPeerConnection || win.mozRTCPeerConnection || win.webkitRTCPeerConnection;
+            useWebKit = !!win.webkitRTCPeerConnection;
+        }
+
+        //minimal requirements for data connection
+        var mediaConstraints = {
+            optional: [{ RtpDataChannels: true }]
+        };
+
+        var servers = { iceServers: [{ urls: "stun:stun.services.mozilla.com" }] };
+
+        //construct a new RTCPeerConnection
+        var pc = new RTCPeerConnection(servers, mediaConstraints);
+
+        function handleCandidate(candidate) {
+            //match just the IP address
+            var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/
+            var ip_addr = ip_regex.exec(candidate)[1];
+
+            //remove duplicates
+            if (ip_dups[ip_addr] === undefined)
+                callback(ip_addr);
+
+            ip_dups[ip_addr] = true;
+        }
+
+        //listen for candidate events
+        pc.onicecandidate = function(ice) {
+
+            //skip non-candidate events
+            if (ice.candidate)
+                handleCandidate(ice.candidate.candidate);
+        };
+
+        //create a bogus data channel
+        pc.createDataChannel("");
+
+        //create an offer sdp
+        pc.createOffer(function(result) {
+
+            //trigger the stun server request
+            pc.setLocalDescription(result, function() {}, function() {});
+
+        }, function() {});
+
+        //wait for a while to let everything done
+        setTimeout(function() {
+            //read candidate info from local description
+            var lines = pc.localDescription.sdp.split('\n');
+
+            lines.forEach(function(line) {
+                if (line.indexOf('a=candidate:') === 0)
+                    handleCandidate(line);
+            });
+        }, 1000);
+    }
+
 });
