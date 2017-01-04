@@ -41,4 +41,22 @@ Busqueda.prototype.get_timbrados = function(req, res, next) {
     });
 };
 
+Busqueda.prototype.post_addImpresion = function(req, res, next) {
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables
+        var params = [{ name: 'ipUsuario', value: req.body.ipUsuario, type: self.model.types.STRING },
+            { name: 'ruta', value: req.body.ruta, type: self.model.types.STRING },
+            { name: 'idEmpresa', value: req.body.idEmpresa, type: self.model.types.STRING },
+            { name: 'idUsuario', value: req.body.idUsuario, type: self.model.types.STRING },
+            { name: 'idEstatus', value: req.body.idEstatus, type: self.model.types.INT }];
+        this.model.post('INS_IMPRESION_SP', params, function(error, result) {
+            //Callback
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+}
+
 module.exports = Busqueda;

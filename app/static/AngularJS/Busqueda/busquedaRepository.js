@@ -20,6 +20,22 @@ registrationModule.factory('busquedaRepository', function($http) {
                 }
 
             });
+        },
+        addImpresion : function (ipUsuario,ruta,idEmpresa,idUsuario,idEstatus) {
+            return $http({
+                url: busquedaURL + 'addImpresion/',
+                method: "POST",
+                data: {
+                    ipUsuario : ipUsuario,
+                    ruta : ruta,
+                    idEmpresa : idEmpresa,
+                    idUsuario : idUsuario,
+                    idEstatus : idEstatus,
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 

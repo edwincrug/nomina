@@ -3,10 +3,14 @@
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
-    $scope.timbrados = '';
+    $scope.timbrados = '';    
     $scope.listaPdfs = [];
+    $scope.lstipUsuario =[]
     $scope.idUsuario = $routeParams.idUsuario
     $scope.init = function() {
+        getIPs(function(ip) {$scope.lstipUsuario.push({ip:ip})});
+        //getIPs(function(ip) { $scope.ipUsuario = ip; console.log($scope.ipUsuario);});
+        console.log($scope.lstipUsuario)
         $scope.mostrarTodos = true
         $scope.mostrarIndi = false
          $scope.enviarTodo = true;
@@ -137,7 +141,6 @@
                 if (result.data.length > 0) {
                     $scope.tipoNomina = result.data;
                     $scope.activarInputTipoNomina = false;
-                    console.log($scope.tipoNomina)
                 }
             });
         } else {
@@ -251,8 +254,10 @@
         $scope.mostrarTodos = false
         $scope.mostrarIndi = true
         //$scope.estatusImpresion = 1
-        $scope.ip = getIPs(function(ip) { console.log(ip); });
-        $scope.rutaCarpeta = timbrados[0].descripcionNomina + '/' + timbrados[0].ClaveTimbrado + "/" + $scope.nombre + '/'
+        $scope.rutaCarpetaCorreo = "C:/Nomina_Timbrado/Timbrados/" + timbrados[0].descripcionNomina + '/' + timbrados[0].ClaveTimbrado + "/" + $scope.nombre + '/'
+        $scope.rutaCarpeta = timbrados[0].descripcionNomina + '\\' + timbrados[0].ClaveTimbrado + "\\" + $scope.nombre + '\\'
+        console.log($scope.rutaCarpeta)
+        //var rutaCarpetaModif = $scope.rutaCarpeta.replace(\\gi, "\\\\");
         for (var i = 0; i < timbrados.length; i++) {
             if (timbrados[i].estatusTimbrado == 100) {
                 $scope.listaPdfs.push({
@@ -262,7 +267,6 @@
                 })
             }
         }
-        console.log($scope.listaPdfs.length + ' '+ $scope.rutaCarpeta +' '+ $scope.ip)
     }
 
 
@@ -273,11 +277,53 @@
         $scope.mostrarIndi = false
         $scope.listaPdfs = [];
         $scope.rutaCarpeta = ''
-        console.log($scope.listaPdfs.length + ' '+ $scope.rutaCarpeta)
     }
 
     $scope.imprimirPdfs = function() {
+    $scope.idImpresion = "";
+        busquedaRepository.addImpresion($scope.lstipUsuario[0].ip, $scope.rutaCarpeta, $scope.idEmpresa, $scope.idUsuario,1).then(function(result) {
+            if(result.data.length > 0){
+                $scope.idImpresion = result.data
+                console.log($scope.idImpresion[0].id)
+                alertFactory.success('Documentos enviados a impresora');
+            }
+        });
 
+    }
+
+    $scope.enviarTodosCorreo = function(correo){
+        $scope.correo = correo;
+        console.log($scope.listaPdfs.length)
+        console.log($scope.listaPdfs.length)
+        filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpetaCorreo, $scope.nombre, $scope.listaPdfs, $scope.correo).then(function(result) {
+            console.log(result.data)
+            if (result.data == 1) {
+                console.log(result)
+                $('#modalLotes').modal('hide');
+
+                alertFactory.success('Correo enviado');
+                $scope.correo = "";
+                $scope.rutaCarpeta = "";
+                $scope.contadorSel = 0;
+                //$scope.init()
+            } else {
+                console.log(nada)
+            }
+        });
+
+        $('#modalLotes').modal('hide');
+
+        alertFactory.success('Correo enviado');
+
+        $('#tblTimbradoExitoso').DataTable().destroy();
+        $('#tblSinTimbrar').DataTable().destroy();
+        //$scope.filtro.correo = "";
+        $scope.correoTodo = "";
+        $scope.rutaCarpeta = "";
+        $scope.contadorSel = 0;
+        $scope.listaPdfs = [];
+        $scope.filtros = null;
+        $scope.timbrados = [];
     }
 
     //********** Crear tabla ************//
