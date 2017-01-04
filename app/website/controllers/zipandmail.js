@@ -1,3 +1,7 @@
+var fs = require("fs");
+var JSZip = require("jszip");
+var zip = new JSZip();
+
 var ZipandMailView = require('../views/reference'),
     ZipandMailModel = require('../models/dataAccess'),
     moment = require('moment');
@@ -5,8 +9,6 @@ var phantom = require('phantom');
 var path = require('path');
 var webPage = require('webpage');
 var request = require('request');
-
-var EasyZip = require('easy-zip').EasyZip;
 
 
 var ZipandMail = function(conf) {
@@ -36,14 +38,35 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
     nombreArchivos = req.body.archivos; 
 
     nombreArchivos.forEach(function (file, i) {
-    files.push({source:ruta + file.nombreRecibo + extension, target: file.nombreRecibo + extension});
+    create_zip(ruta + file.nombreRecibo + extension,file.nombreRecibo + extension);
     });
      
-   
-    var zip = new EasyZip();
-    zip.batchAdd(files, function() {
-        zip.writeToFile( ruta + carpeta + '.zip');
+
+    function create_zip(file,name) {
+
+    var contentPromise = new JSZip.external.Promise(function(resolve, reject) {
+        fs.readFile(file, function(err, data) {
+            if (err) {
+                reject(e);
+            } else {
+                resolve(data);
+            }
+        });
     });
+    zip.file(name, contentPromise);
+}
+
+zip
+    .generateNodeStream({ type: 'nodebuffer', streamFiles: true })
+    .pipe(fs.createWriteStream(ruta + carpeta + '.zip'))
+    .on('finish', function() {
+        // JSZip generates a readable stream with a "end" event,
+        // but is piped here in a writable stream which emits a "finish" event.
+        console.log(ruta + carpeta + '.zip' + "written.");
+    });
+
+
+
 
     var nodemailer = require('nodemailer');
 
@@ -79,9 +102,5 @@ ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto 
     object.result = 1; 
     console.log(object.result)           
 }
-
-
-
-
 
 module.exports = ZipandMail;
