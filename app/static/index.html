@@ -39,13 +39,13 @@
                 <br/>
             </div>
         </div>
-        <a href="/timbrado{{datosUsuario[0].idPerfil}}" title="Timbrado" style="font-family:Helvetica;" ng-show="menuTimbrado">
+        <a href="/timbrado{{datosUsuario[0].idPerfil}}&{{datosUsuario[0].idUsuario}}" title="Timbrado" style="font-family:Helvetica;" ng-show="menuTimbrado">
             <i class="glyphicon glyphicon-list-alt"></i>
             <span class="menu-title">
                 <strong>Timbrado</strong>
             </span>
         </a>
-        <a href="/busqueda{{datosUsuario[0].idPerfil}}" title="TimbradoBusqueda" style="font-family:Helvetica;" ng-show="menuBusqueda">
+        <a href="/busqueda{{datosUsuario[0].idPerfil}}&{{datosUsuario[0].idUsuario}}" title="TimbradoBusqueda" style="font-family:Helvetica;" ng-show="menuBusqueda">
             <i class="glyphicon glyphicon-search"></i>
             <span class="menu-title">
                 <strong>Búsqueda</strong>

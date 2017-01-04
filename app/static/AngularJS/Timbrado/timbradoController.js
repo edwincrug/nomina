@@ -1,6 +1,6 @@
 registrationModule.controller('timbradoController', function($scope, $rootScope,$routeParams, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
     $rootScope.mostrarMenu = true;
-    $scope.idUsuario = 2;
+    $scope.idUsuario = $routeParams.idUsuario
     $scope.procesando = false;
     $scope.rutaCarpeta = ""
     $scope.nombreCarpeta = ""
@@ -20,7 +20,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         $scope.getTipoNomina();
         console.log('Estoy en timbrado',$routeParams.idPerfil)
         //$scope.getPermisos();
-        setInterval(function() { $scope.getPermisos(); }, 1000);
+        setInterval(function() { $scope.getPermisos(); }, 1500);
     }
 
     $scope.getEmpresa = function(idUsuario) {
@@ -87,10 +87,12 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                 $scope.datosPendientes = result.data
                 $scope.NombreEmpresa = result.data[0].NombreEmpresa
                 $scope.NombreNomina = result.data[0].NombreNomina
-                $scope.DocumentosAceptados = result.data[0].TotalRecibos
+                $scope.DocumentosAceptados = result.data[0].timbrados
+                $scope.documentosTotales = result.data[0].TotalRecibos;
+                $scope.documentosErroneos = result.data[0].timbradoError;
+                $scope.TipoDescripcion = result.data[0].TipoDescripcion;
                 if ($scope.datosPendientes[0].estatus == 'timbrando') {
-
-                    if ($scope.datosPendientes[0].timbrados == $scope.datosPendientes[0].TotalRecibos) {
+                    if (($scope.datosPendientes[0].timbrados + $scope.datosPendientes[0].timbradoError) == $scope.datosPendientes[0].TotalRecibos) {
                         $scope.mensajePanel = "Timbrado Finalizado...."
                         $scope.timbradoPendiente = false;
                         $scope.procesando = true;

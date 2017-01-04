@@ -5,11 +5,11 @@
     $rootScope.mostrarMenu = true;
     $scope.timbrados = '';
     $scope.listaPdfs =[];
-    $scope.idUsuario = 2
+    $scope.idUsuario = $routeParams.idUsuario
     $scope.init = function() {
         openCloseNav();
         $scope.getGrupo(1);
-        console.log('Estoy en busqueda',$routeParams.idPerfil)
+        console.log('Estoy en busqueda',$routeParams.idPerfil + ' idUsuario' + $routeParams.idUsuario)
         variablesInput();
     }
     var variablesInput = function() {
@@ -159,7 +159,7 @@
     $scope.verificaFecha = function(filtro) {
         $scope.idEmpresa = filtro.idTipoEmpresa;
         $scope.idTipoNomina = filtro.idTipoNomina;
-        $scope.idUsuario = 2;
+        //$scope.idUsuario = 2;
         $scope.nombre = filtro.periodo;
 
         //C:\Nomina_Timbrado\Origen\Semanal\001

@@ -52,17 +52,19 @@
                             {{mensajePanel}}
                     </div>
                         <div class="panel-body ">
-                            <p>Empresa: {{NombreEmpresa}}<p> <p>Periodo: {{NombreNomina}}<p>
+                            <label>Empresa: </label> {{NombreEmpresa}}<br/> 
+                            <label>Periodo: </label> {{NombreNomina}}
                             <div class="progress progress-striped active " ng-show="mostrarEstado == true">
                                 <div style="width: {{porcentaje}}% " aria-valuemax="100 " aria-valuemin="0 " aria-valuenow="75 " role="progressbar " class="progress-bar progress-bar-sucess ">
                                     <span class="sr-only "></span> {{porcentaje | number:2}}%
                                 </div>
                             </div>
                             <div ng-show="mostrarEstado == false">Timbrado Terminado </div>
-                            <div ng-show="mostrarEstado == true">{{datosPendientes[0].timbrados}} XML de {{datosPendientes[0].TotalRecibos}} XML</div><br/>
+                            <div ng-show="mostrarEstado == true">{{datosPendientes[0].timbrados}} <label> xml de  </label> {{documentosTotales}} </div><br/>
+                            <label>Tipo de Nomina:</label> {{TipoDescripcion}}
                             <!-- <label>Tiempo transcurrido: </label> <span id="minutos">0</span>:<span id="segundos">0</span><br/> -->
-                            <label>Documentos timbrados: </label>{{DocumentosAceptados}}<br/>
-                            <label>Documentos no timbrados: </label> 0
+                            <label>Documentos timbrados: </label> {{DocumentosAceptados}}<br/>
+                            <label>Documentos no timbrados: </label> {{documentosErroneos}}
                         </div>
                 </div>
 <!-- <span id="minutos">0</span>:<span id="segundos">0</span><br/> -->

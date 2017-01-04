@@ -13,13 +13,13 @@ registrationModule.controller('loginController', function($scope, $rootScope, $l
                 if ($rootScope.datosUsuario[0].idPerfil == 1) {
                     $rootScope.menuTimbrado = true;
                     $rootScope.menuBusqueda = true;
-                    $location.url('/timbrado' + $rootScope.datosUsuario[0].idPerfil);
+                    $location.url('/timbrado' + $rootScope.datosUsuario[0].idPerfil + '&'+ $rootScope.datosUsuario[0].idUsuario);
                 } else if ($rootScope.datosUsuario[0].idPerfil == 2) {
                     $rootScope.menuTimbrado = true;
-                    $location.url('/timbrado' + $rootScope.datosUsuario[0].idPerfil);
+                    $location.url('/timbrado' + $rootScope.datosUsuario[0].idPerfil+ '&'+ $rootScope.datosUsuario[0].idUsuario );
                 } else if ($rootScope.datosUsuario[0].idPerfil == 3) {
                     $rootScope.menuBusqueda = true;
-                    $location.url('/busqueda' + $rootScope.datosUsuario[0].idPerfil);
+                    $location.url('/busqueda' + $rootScope.datosUsuario[0].idPerfil + '&'+ $rootScope.datosUsuario[0].idUsuario);
                 }
             }else{
             	alertFactory.error('El usuario y/o contraseña son incorrecta(s)')
