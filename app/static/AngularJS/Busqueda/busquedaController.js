@@ -292,26 +292,25 @@
     }
 
     $scope.enviarTodosCorreo = function(correo){
+        console.log('entre al enviar correo')
         $scope.correo = correo;
         console.log($scope.listaPdfs.length)
         console.log($scope.listaPdfs.length)
         filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpetaCorreo, $scope.nombre, $scope.listaPdfs, $scope.correo).then(function(result) {
             console.log(result.data)
             if (result.data == 1) {
-                console.log(result)
-                $('#modalLotes').modal('hide');
+                $('#modalTodoscorreo').modal('hide');
 
                 alertFactory.success('Correo enviado');
                 $scope.correo = "";
                 $scope.rutaCarpeta = "";
                 $scope.contadorSel = 0;
-                //$scope.init()
             } else {
                 console.log(nada)
             }
         });
 
-        $('#modalLotes').modal('hide');
+        $('#modalTodoscorreo').modal('hide');
 
         alertFactory.success('Correo enviado');
 
@@ -319,6 +318,7 @@
         $('#tblSinTimbrar').DataTable().destroy();
         //$scope.filtro.correo = "";
         $scope.correoTodo = "";
+        $scope.filtros.correoTodo = null
         $scope.rutaCarpeta = "";
         $scope.contadorSel = 0;
         $scope.listaPdfs = [];

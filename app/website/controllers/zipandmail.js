@@ -24,7 +24,8 @@ var ZipandMail = function(conf) {
     }
 }
 
-ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  //Objeto que almacena la respuesta
+ZipandMail.prototype.post_generaZipMail = function(req, res, next) {  
+console.log(req.body)//Objeto que almacena la respuesta
       
     var object = {};   //Objeto que envía los parámetros
     var params = [];   //Referencia a la clase para callback
