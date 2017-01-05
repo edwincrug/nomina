@@ -223,9 +223,15 @@
                 $('#modalLotes').modal('hide');
 
                 alertFactory.success('Correo enviado');
-                $scope.correo = "";
-                $scope.rutaCarpeta = "";
-                $scope.contadorSel = 0;
+                $('#tblTimbradoExitoso').DataTable().destroy();
+        $('#tblSinTimbrar').DataTable().destroy();
+        //$scope.filtro.correo = "";
+        $scope.correo = "";
+        $scope.rutaCarpeta = "";
+        $scope.contadorSel = 0;
+        $scope.listaPdfs = [];
+        $scope.filtro = null;
+        $scope.timbrados = [];
                 //$scope.init()
             } else {
                 console.log(nada)
