@@ -243,7 +243,7 @@
         $scope.rutaCarpeta = "";
         $scope.contadorSel = 0;
         $scope.listaPdfs = [];
-        $scope.filtros = null;
+        $scope.filtro = null;
         $scope.timbrados = [];
     }
 
@@ -323,6 +323,7 @@
 
                 alertFactory.success($scope.listaPdfs.length + ' Documentos enviados a impresora');
                 $scope.listaPdfs = [];
+                $scope.filtro = null;
             }
         });
     };
@@ -354,11 +355,11 @@
         $('#tblSinTimbrar').DataTable().destroy();
         //$scope.filtro.correo = "";
         $scope.correoTodo = "";
-        $scope.filtros.correoTodo = null
+        $scope.filtro.correoTodo = null
         $scope.rutaCarpeta = "";
         $scope.contadorSel = 0;
         $scope.listaPdfs = [];
-        $scope.filtros = null;
+        $scope.filtro = null;
         $scope.timbrados = [];
     }
 
