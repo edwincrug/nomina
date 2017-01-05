@@ -202,7 +202,6 @@
 
     $scope.enviarCorreo = function(listaDocumentos, correo) {
         $scope.correo = correo;
-        //console.log($scope.correo)
         $scope.rutaCarpeta = "C:/Nomina_Timbrado/Timbrados/" + listaDocumentos[0].descripcionNomina + '/' + listaDocumentos[0].ClaveTimbrado + "/" + $scope.nombre + '/'
         $scope.contadorSel = 0;
         angular.forEach(listaDocumentos, function(value, key) {
@@ -213,10 +212,8 @@
                     nombreNomina: value.NombreNomina
                 })
                 $scope.contadorSel++;
-                console.log('entreee :)')
             }
         });
-        //console.log($scope.idEmpresa+' '+ $scope.idTipoNomina+' '+ $scope.idUsuario+' '+ $scope.rutaCarpeta+' '+ $scope.nombre+' '+ 2)
         filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre, $scope.listaPdfs, $scope.correo).then(function(result) {
             if (result.data == 1) {
                 console.log(result)
@@ -235,7 +232,7 @@
                 $scope.timbrados = [];
                 //$scope.init()
             } else {
-                console.log(nada)
+                console.log('nada')
             }
         });
 
@@ -311,9 +308,8 @@
                 $scope.contadorSel++;
             }
         });
-        console.log($scope.listaPdfs)
         $scope.idImpresion = "";
-        console.log($scope.lstipUsuario[0].ip + ' ' + $scope.rutaCarpeta + ' ' + $scope.idEmpresa + ' ' + $scope.idUsuario)
+        
         busquedaRepository.addImpresion($scope.lstipUsuario[0].ip, $scope.rutaCarpeta, $scope.idEmpresa, $scope.idUsuario, 1).then(function(result) {
             if (result.data.length > 0) {
                 $scope.idImpresion = result.data[0].id
@@ -332,16 +328,13 @@
                 alertFactory.success($scope.listaPdfs.length + ' Documentos enviados a impresora');
                 $scope.listaPdfs = [];
                 $scope.filtro = null;
-                $scope.timbrados = [];
+
             }
         });
     };
 
     $scope.enviarTodosCorreo = function(correo) {
-        console.log('entre al enviar correo')
         $scope.correo = correo;
-        console.log($scope.listaPdfs.length)
-        console.log($scope.listaPdfs.length)
         filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpetaCorreo, $scope.nombre, $scope.listaPdfs, $scope.correo).then(function(result) {
             if (result.data == 1) {
                 $('#modalTodoscorreo').modal('hide');
@@ -356,7 +349,7 @@
                 $scope.timbrados = [];
                 $scope.filtro.correoTodo = null
             } else {
-                console.log(nada)
+                console.log('nada')
             }
         });
 
