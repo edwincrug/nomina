@@ -224,14 +224,15 @@
 
                 alertFactory.success('Correo enviado');
                 $('#tblTimbradoExitoso').DataTable().destroy();
-        $('#tblSinTimbrar').DataTable().destroy();
-        //$scope.filtro.correo = "";
-        $scope.correo = "";
-        $scope.rutaCarpeta = "";
-        $scope.contadorSel = 0;
-        $scope.listaPdfs = [];
-        $scope.filtro = null;
-        $scope.timbrados = [];
+                $('#tblSinTimbrar').DataTable().destroy();
+                //$scope.filtro.correo = "";
+                $scope.correo = "";
+                $scope.rutaCarpeta = "";
+                $scope.contadorSel = 0;
+                $scope.listaPdfs = [];
+                $scope.filtro = null;
+                $scope.filtros = null;
+                $scope.timbrados = [];
                 //$scope.init()
             } else {
                 console.log(nada)
@@ -250,6 +251,7 @@
         $scope.contadorSel = 0;
         $scope.listaPdfs = [];
         $scope.filtro = null;
+        $scope.filtros = null;
         $scope.timbrados = [];
     }
 
@@ -311,7 +313,7 @@
         });
         console.log($scope.listaPdfs)
         $scope.idImpresion = "";
-        console.log($scope.lstipUsuario[0].ip+ ' '+  $scope.rutaCarpeta+ ' '+  $scope.idEmpresa+ ' '+  $scope.idUsuario)
+        console.log($scope.lstipUsuario[0].ip + ' ' + $scope.rutaCarpeta + ' ' + $scope.idEmpresa + ' ' + $scope.idUsuario)
         busquedaRepository.addImpresion($scope.lstipUsuario[0].ip, $scope.rutaCarpeta, $scope.idEmpresa, $scope.idUsuario, 1).then(function(result) {
             if (result.data.length > 0) {
                 $scope.idImpresion = result.data[0].id
@@ -330,6 +332,7 @@
                 alertFactory.success($scope.listaPdfs.length + ' Documentos enviados a impresora');
                 $scope.listaPdfs = [];
                 $scope.filtro = null;
+                $scope.timbrados = [];
             }
         });
     };
@@ -343,13 +346,14 @@
             if (result.data == 1) {
                 $('#modalTodoscorreo').modal('hide');
                 alertFactory.success('Correo enviado');
-
-            $('#tblTimbradoExitoso').DataTable().destroy();
-            $('#tblSinTimbrar').DataTable().destroy();
+                $scope.filtros = null;
+                $('#tblTimbradoExitoso').DataTable().destroy();
+                $('#tblSinTimbrar').DataTable().destroy();
                 $scope.correo = "";
                 $scope.rutaCarpeta = "";
                 $scope.contadorSel = 0;
                 $scope.listaPdfs = [];
+                $scope.timbrados = [];
                 $scope.filtro.correoTodo = null
             } else {
                 console.log(nada)
@@ -364,6 +368,7 @@
         $('#tblSinTimbrar').DataTable().destroy();
         //$scope.filtro.correo = "";
         $scope.correoTodo = "";
+        $scope.filtros = null;
         $scope.filtro.correoTodo = null
         $scope.rutaCarpeta = "";
         $scope.contadorSel = 0;
