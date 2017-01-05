@@ -334,14 +334,17 @@
         console.log($scope.listaPdfs.length)
         console.log($scope.listaPdfs.length)
         filetreeRepository.postDocumentosMail($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpetaCorreo, $scope.nombre, $scope.listaPdfs, $scope.correo).then(function(result) {
-            console.log(result.data)
             if (result.data == 1) {
                 $('#modalTodoscorreo').modal('hide');
-
                 alertFactory.success('Correo enviado');
+
+            $('#tblTimbradoExitoso').DataTable().destroy();
+            $('#tblSinTimbrar').DataTable().destroy();
                 $scope.correo = "";
                 $scope.rutaCarpeta = "";
                 $scope.contadorSel = 0;
+                $scope.listaPdfs = [];
+                $scope.filtro.correoTodo = null
             } else {
                 console.log(nada)
             }
