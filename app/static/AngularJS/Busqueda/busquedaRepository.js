@@ -36,6 +36,19 @@ registrationModule.factory('busquedaRepository', function($http) {
                     'Content-Type': 'application/json'
                 }
             });
+        },// 
+        addImpresionDetalle : function (idImpresora,documento) {
+            return $http({
+                url: busquedaURL + 'addImpresionDetalle/',
+                method: "POST",
+                data: {
+                    idImpresora : idImpresora,
+                    documento : documento
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
         }
     };
 

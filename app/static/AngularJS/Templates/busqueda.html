@@ -93,17 +93,17 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="timbrado in timbrados | filter:{estatusTimbrado : 100} ">
-                                            <th>{{timbrado.idEmpleado}}</th>
-                                            <th>{{timbrado.nombreEmpleado}}</th>
-                                            <th>{{timbrado.nombreEmpresa}}</th>
-                                            <th>{{timbrado.nombreSucursal}}</th>
-                                            <th>{{timbrado.nombreDepartamento}}</th>
-                                            <th>{{timbrado.descripcionNomina}}</th>
-                                            <th>{{timbrado.nombreRecibo}}</th>
-                                            <th style="text-align: center;" ng-show="mostrarTodos">
+                                            <td style="font-family: sans-serif !important">{{timbrado.idEmpleado}}</td>
+                                            <td style="font-family: sans-serif !important">{{timbrado.nombreEmpleado}}</td>
+                                            <td style="font-family: sans-serif !important">{{timbrado.nombreEmpresa}}</td>
+                                            <td style="font-family: sans-serif !important">{{timbrado.nombreSucursal}}</td>
+                                            <td style="font-family: sans-serif !important">{{timbrado.nombreDepartamento}}</td>
+                                            <td style="font-family: sans-serif !important">{{timbrado.descripcionNomina}}</td>
+                                            <td style="font-family: sans-serif !important">{{timbrado.nombreRecibo}}</td>
+                                            <td style="text-align: center;" ng-show="mostrarTodos">
                                                 <input type="checkbox" ng-model="timbrado.check" ng-checked="{{timbrado.check}}">
-                                            </th>
-                                            <th></th>
+                                            </td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -133,14 +133,14 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="notimbra in sinTimbrar | filter:{estatusTimbrado: '!100' } ">
-                                            <th>{{notimbra.idEmpleado}}</th>
-                                            <th>{{notimbra.nombreEmpleado}}</th>
-                                            <th>{{notimbra.nombreEmpresa}}</th>
-                                            <th>{{notimbra.nombreSucursal}}</th>
-                                            <th>{{notimbra.nombreDepartamento}}</th>
-                                            <th>{{notimbra.descripcionNomina}}</th>
-                                            <th>{{notimbra.nombreRecibo}}</th>
-                                            <th>{{notimbra.descripcionTimbrado}}</th>
+                                            <td style="font-family: sans-serif !important">{{notimbra.idEmpleado}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.nombreEmpleado}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.nombreEmpresa}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.nombreSucursal}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.nombreDepartamento}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.descripcionNomina}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.nombreRecibo}}</td>
+                                            <td style="font-family: sans-serif !important">{{notimbra.descripcionTimbrado}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -170,7 +170,7 @@
 
     <div class="col-lg-12" ng-show="enviarTodo == true">
         <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalLotes">Enviar por Correo</button>
-        <button type="button " class="btn btn-w-m btn-primary ">Enviar a Imprimir</button>
+        <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirDocumentosPdfs(timbrados)">Enviar a Imprimir</button>
     </div>
     <div class="col-lg-12" ng-show="enviarTodo == false"> 
     

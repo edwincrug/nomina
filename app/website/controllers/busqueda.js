@@ -42,6 +42,7 @@ Busqueda.prototype.get_timbrados = function(req, res, next) {
 };
 
 Busqueda.prototype.post_addImpresion = function(req, res, next) {
+    console.log('entre')
         //Referencia a la clase para callback
         var self = this;
         //Asigno a params el valor de mis variables
@@ -51,6 +52,22 @@ Busqueda.prototype.post_addImpresion = function(req, res, next) {
             { name: 'idUsuario', value: req.body.idUsuario, type: self.model.types.STRING },
             { name: 'idEstatus', value: req.body.idEstatus, type: self.model.types.INT }];
         this.model.post('INS_IMPRESION_SP', params, function(error, result) {
+            //Callback
+            self.view.expositor(res, {
+                error: error,
+                result: result
+            });
+        });
+}
+
+Busqueda.prototype.post_addImpresionDetalle = function(req, res, next) {
+        //Referencia a la clase para callback
+        var self = this;
+        //Asigno a params el valor de mis variables
+        var params = [{ name: 'idImpresion', value: req.body.idImpresora, type: self.model.types.INT },
+            { name: 'documento', value: req.body.documento, type: self.model.types.STRING }];
+
+        this.model.post('INS_IMPRESION_DETALLE_SP', params, function(error, result) {
             //Callback
             self.view.expositor(res, {
                 error: error,

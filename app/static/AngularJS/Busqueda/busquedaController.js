@@ -3,17 +3,17 @@
     $scope.periodoFecha = '';
     $scope.fecha = '';
     $rootScope.mostrarMenu = true;
-    $scope.timbrados = '';    
+    $scope.timbrados = '';
     $scope.listaPdfs = [];
-    $scope.lstipUsuario =[]
+    $scope.lstipUsuario = []
     $scope.idUsuario = $routeParams.idUsuario
     $scope.init = function() {
-        getIPs(function(ip) {$scope.lstipUsuario.push({ip:ip})});
+        getIPs(function(ip) { $scope.lstipUsuario.push({ ip: ip }) });
         //getIPs(function(ip) { $scope.ipUsuario = ip; console.log($scope.ipUsuario);});
         console.log($scope.lstipUsuario)
         $scope.mostrarTodos = true
         $scope.mostrarIndi = false
-         $scope.enviarTodo = true;
+        $scope.enviarTodo = true;
         openCloseNav();
         $scope.getGrupo(1);
         console.log('Estoy en busqueda', $routeParams.idPerfil + ' idUsuario' + $routeParams.idUsuario)
@@ -253,11 +253,11 @@
         $scope.enviarTodo = false;
         $scope.mostrarTodos = false
         $scope.mostrarIndi = true
-        //$scope.estatusImpresion = 1
+            //$scope.estatusImpresion = 1
         $scope.rutaCarpetaCorreo = "C:/Nomina_Timbrado/Timbrados/" + timbrados[0].descripcionNomina + '/' + timbrados[0].ClaveTimbrado + "/" + $scope.nombre + '/'
         $scope.rutaCarpeta = timbrados[0].descripcionNomina + '\\' + timbrados[0].ClaveTimbrado + "\\" + $scope.nombre + '\\'
         console.log($scope.rutaCarpeta)
-        //var rutaCarpetaModif = $scope.rutaCarpeta.replace(\\gi, "\\\\");
+            //var rutaCarpetaModif = $scope.rutaCarpeta.replace(\\gi, "\\\\");
         for (var i = 0; i < timbrados.length; i++) {
             if (timbrados[i].estatusTimbrado == 100) {
                 $scope.listaPdfs.push({
@@ -280,18 +280,54 @@
     }
 
     $scope.imprimirPdfs = function() {
-    $scope.idImpresion = "";
-        busquedaRepository.addImpresion($scope.lstipUsuario[0].ip, $scope.rutaCarpeta, $scope.idEmpresa, $scope.idUsuario,1).then(function(result) {
-            if(result.data.length > 0){
+        $scope.idImpresion = "";
+        busquedaRepository.addImpresion($scope.lstipUsuario[0].ip, $scope.rutaCarpeta, $scope.idEmpresa, $scope.idUsuario, 1).then(function(result) {
+            if (result.data.length > 0) {
                 $scope.idImpresion = result.data
                 console.log($scope.idImpresion[0].id)
                 alertFactory.success('Documentos enviados a impresora');
             }
         });
+    };
 
-    }
 
-    $scope.enviarTodosCorreo = function(correo){
+    $scope.imprimirDocumentosPdfs = function(listaDocumentos) {
+        $scope.rutaCarpeta = listaDocumentos[0].descripcionNomina + '\\' + listaDocumentos[0].ClaveTimbrado + "\\" + $scope.nombre + '\\'
+        angular.forEach(listaDocumentos, function(value, key) {
+            if (value.check == true) {
+                $scope.listaPdfs.push({
+                    nombreRecibo: value.nombreRecibo,
+                    idTipoNomina: value.idTipoNomina,
+                    nombreNomina: value.NombreNomina
+                })
+                $scope.contadorSel++;
+            }
+        });
+        console.log($scope.listaPdfs)
+        $scope.idImpresion = "";
+        console.log($scope.lstipUsuario[0].ip+ ' '+  $scope.rutaCarpeta+ ' '+  $scope.idEmpresa+ ' '+  $scope.idUsuario)
+        busquedaRepository.addImpresion($scope.lstipUsuario[0].ip, $scope.rutaCarpeta, $scope.idEmpresa, $scope.idUsuario, 1).then(function(result) {
+            if (result.data.length > 0) {
+                $scope.idImpresion = result.data[0].id
+                $scope.listaPdfs.forEach(function(arrayDataLot) {
+                    busquedaRepository.addImpresionDetalle($scope.idImpresion, arrayDataLot.nombreRecibo)
+                        .then(function(nuevos) {
+                            if (nuevos.data.length > 0) {
+                                console.log('Se guardo bien')
+                            } else {
+                                console.log('Error al Guardar')
+                            }
+                        });
+                });
+                $scope.rutaCarpeta = "";
+
+                alertFactory.success($scope.listaPdfs.length + ' Documentos enviados a impresora');
+                $scope.listaPdfs = [];
+            }
+        });
+    };
+
+    $scope.enviarTodosCorreo = function(correo) {
         console.log('entre al enviar correo')
         $scope.correo = correo;
         console.log($scope.listaPdfs.length)
