@@ -64,7 +64,7 @@ console.log(req.body)//Objeto que almacena la respuesta
             // but is piped here in a writable stream which emits a "finish" event.
             console.log(ruta + carpeta + '.zip' + "written.");
         });
-
+    zip = new JSZip();
     var nodemailer = require('nodemailer');
     var smtpTransport = require('nodemailer-smtp-transport');
 
@@ -118,6 +118,18 @@ console.log(req.body)//Objeto que almacena la respuesta
         } else {
             res.send(200);
             console.log('Message sent: ' + info.response);
+
+            fs.stat(ruta + carpeta + '.zip', function(err, stats) {
+
+            if (err) {
+                return console.error(err);
+            }
+
+            fs.unlink(ruta + carpeta + '.zip', function(err) {
+                // if (err) return console.log(err);
+                 console.log('file deleted successfully');
+            });
+            });
         }
 
                
@@ -128,18 +140,8 @@ console.log(req.body)//Objeto que almacena la respuesta
     object.result = 1; 
     console.log(object.result)
     req.body = []; 
-              
-    fs.stat(ruta + carpeta + '.zip', function(err, stats) {
-
-            if (err) {
-                return console.error(err);
-            }
-
-            fs.unlink(ruta + carpeta + '.zip', function(err) {
-                // if (err) return console.log(err);
-                 console.log('file deleted successfully');
-            });
-        });
+       
+    
 }
 
 
