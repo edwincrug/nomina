@@ -124,11 +124,22 @@ console.log(req.body)//Objeto que almacena la respuesta
     });
 
     transporter.close;
-
     object.error = null;            
     object.result = 1; 
     console.log(object.result)
-    req.body = [];           
+    req.body = []; 
+              
+    fs.stat(ruta + carpeta + '.zip', function(err, stats) {
+
+            if (err) {
+                return console.error(err);
+            }
+
+            fs.unlink(ruta + carpeta + '.zip', function(err) {
+                // if (err) return console.log(err);
+                 console.log('file deleted successfully');
+            });
+        });
 }
 
 
