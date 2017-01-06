@@ -94,7 +94,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                 $scope.TipoDescripcion = result.data[0].TipoDescripcion;
                 if ($scope.datosPendientes[0].estatus == 'timbrando') {
                     if (($scope.datosPendientes[0].timbrados + $scope.datosPendientes[0].timbradoError) == $scope.datosPendientes[0].TotalRecibos) {
-                        $scope.mensajePanel = "Timbrado Finalizado...."
+                        $scope.mensajePanel = "Último Timbrado...."
                         $scope.timbradoPendiente = false;
                         $scope.procesando = true;
                         $scope.porcentaje = ($scope.datosPendientes[0].timbrados * 100) / $scope.datosPendientes[0].TotalRecibos

@@ -88,7 +88,7 @@
                                             <th>Tipo de Nómina</th>
                                             <th>Documento</th>
                                             <th ng-show="mostrarTodos">Seleccionar</th>
-                                            <th>Recibo</th>
+                                            <!-- <th>Recibo</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,7 +103,7 @@
                                             <td style="text-align: center;" ng-show="mostrarTodos">
                                                 <input type="checkbox" ng-model="timbrado.check" ng-checked="{{timbrado.check}}">
                                             </td>
-                                            <td></td>
+                                            <!-- <td></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -111,17 +111,34 @@
                         </div>
 
                     <div class="row col-sm-12">
-                        <div class="col-sm-10 ">
-                        </div>
-                        <div class="col-sm-2" ng-show="mostrarTodos">
+                        <div class="col-md-10 col-md-offset-2" ng-show="mostrarTodos" style="text-align: right;">
                             <button ng-click="seleccionarDocumentosTodo(timbrados)" class="btn btn-warning">Seleccionar Todo</button>
                         </div>
 
-                        <div class="col-sm-2" ng-show="mostrarIndi">
+                        <div class="col-md-10 col-md-offset-2" ng-show="mostrarIndi" style="text-align: right;">
                             <button ng-click="seleccionarDocumentos()" class="btn btn-success">Seleccionar individual</button>
                         </div>
+                         <br/>
                     </div>
+
                         <!-- tabla lotes no Aplicado  FIN-->
+                    </div>
+                     <br/>
+                    <div class="row " ng-show="panels[0].active">
+                     <br/>
+                      <br/>
+                   <!-- 
+                        <div class="col-sm-8" ng-show="enviarTodo == true"></div>
+                        <div class="col-sm-7" ng-show="enviarTodo == false"></div> -->
+                        <div class="col-md-8 col-md-offset-4" ng-show="enviarTodo == true" style="text-align: right;">
+                            <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalLotes">Enviar por Correo</button>
+                            <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirDocumentosPdfs(timbrados)">Enviar a Imprimir</button>
+                        </div>
+                        <div class="col-md-7 col-md-offset-5" ng-show="enviarTodo == false" style="text-align: right;"> 
+                        
+                            <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalTodoscorreo">Enviar todo por Correo</button>
+                            <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirPdfs()">Enviar todo a Imprimir</button>
+                        </div>
                     </div>
                     <!-- tabContent1 Fin-->
                     <!-- tabContent1 Ini-->
@@ -169,14 +186,6 @@
     <!-- Terminan tabs -->
     <!-- Inician botones -->
 
-    <div class="col-lg-12" ng-show="enviarTodo == true">
-        <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalLotes">Enviar por Correo</button>
-        <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirDocumentosPdfs(timbrados)">Enviar a Imprimir</button>
-    </div>
-    <div class="col-lg-12" ng-show="enviarTodo == false"> 
-    
-        <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalTodoscorreo">Enviar todo por Correo</button>
-        <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirPdfs()">Enviar todo a Imprimir</button></div>
     <!-- Terminan botones -->
 </div>
 
