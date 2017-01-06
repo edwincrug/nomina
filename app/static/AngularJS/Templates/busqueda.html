@@ -109,10 +109,14 @@
                                 </table>
                             </div>
                         </div>
+                        <!-- tabla lotes no Aplicado  FIN-->
+                    </div>
+                     <br/>
+                    <div class="row " ng-show="panels[0].active">
 
                     <div class="row col-sm-12">
                         <div class="col-md-10 col-md-offset-2" ng-show="mostrarTodos" style="text-align: right;">
-                            <button ng-click="seleccionarDocumentosTodo(timbrados)" class="btn btn-warning">Seleccionar Todo</button>
+                            <button ng-click="seleccionarDocumentosTodo(timbrados)" class="btn btn-primary">Seleccionar Todo</button>
                         </div>
 
                         <div class="col-md-10 col-md-offset-2" ng-show="mostrarIndi" style="text-align: right;">
@@ -120,24 +124,17 @@
                         </div>
                          <br/>
                     </div>
-
-                        <!-- tabla lotes no Aplicado  FIN-->
-                    </div>
-                     <br/>
-                    <div class="row " ng-show="panels[0].active">
                      <br/>
                       <br/>
-                   <!-- 
-                        <div class="col-sm-8" ng-show="enviarTodo == true"></div>
-                        <div class="col-sm-7" ng-show="enviarTodo == false"></div> -->
+                      <br/>
                         <div class="col-md-8 col-md-offset-4" ng-show="enviarTodo == true" style="text-align: right;">
-                            <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalLotes">Enviar por Correo</button>
-                            <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirDocumentosPdfs(timbrados)">Enviar a Imprimir</button>
+                            <button type="button " class="btn btn-w-m btn-warning " data-toggle="modal" data-target="#modalLotes">Enviar por Correo</button>
+                            <button type="button " class="btn btn-w-m btn-danger" ng-click="imprimirDocumentosPdfs(timbrados)">Enviar a Imprimir</button>
                         </div>
                         <div class="col-md-7 col-md-offset-5" ng-show="enviarTodo == false" style="text-align: right;"> 
                         
-                            <button type="button " class="btn btn-w-m btn-primary " data-toggle="modal" data-target="#modalTodoscorreo">Enviar todo por Correo</button>
-                            <button type="button " class="btn btn-w-m btn-primary" ng-click="imprimirPdfs()">Enviar todo a Imprimir</button>
+                            <button type="button " class="btn btn-w-m btn-warning " data-toggle="modal" data-target="#modalTodoscorreo">Enviar todo por Correo</button>
+                            <button type="button " class="btn btn-w-m btn-danger" ng-click="imprimirPdfs()">Enviar todo a Imprimir</button>
                         </div>
                     </div>
                     <!-- tabContent1 Fin-->
