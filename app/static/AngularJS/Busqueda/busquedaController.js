@@ -111,7 +111,7 @@
                 if (result.data.length > 0) {
                     $scope.departamento = result.data;
                     $scope.activarInputDepartamento = false;
-                    $scope.activarInputPeriodo = false;
+                    //$scope.activarInputPeriodo = false;
 
                 }
             });
@@ -122,10 +122,10 @@
     }
     var sucursalVacia = function() {
             $scope.filtros.idDepartamento = null;
-            $scope.filtros.idTipoNomina = null;
+            //$scope.filtros.idTipoNomina = null;
             $scope.filtros.periodo = null;
             $scope.activarInputDepartamento = true;
-            $scope.activarInputTipoNomina = true;
+            //$scope.activarInputTipoNomina = true;
             $scope.activarInputPeriodo = false;
             //$scope.activarInputPeriodo = true;
         }

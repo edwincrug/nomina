@@ -19,7 +19,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         openCloseNav()
         $scope.getEmpresa(1);
         $scope.getTipoNomina();
-        console.log('Estoy en timbrado', $routeParams.idPerfil)
+        //console.log('Estoy en timbrado', $routeParams.idPerfil)
             //$scope.getPermisos();
         setInterval(function() { $scope.getPermisos(); }, 1500);
     }
@@ -60,7 +60,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         $scope.rutaCarpeta = obj.path;
         var cadena = obj.path;
         $scope.directorio = cadena.substr((cadena.length) - 8, 8)
-        console.log($scope.directorio)
+        //console.log($scope.directorio)
     }
 
     $scope.seleccionarTimbre = function(obj) {
@@ -69,11 +69,15 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     }
 
     $scope.realizarTimbrado = function() {
+
         //var rutaCarpetaModif = $scope.rutaCarpeta.replace(/\\/gi, "\\\\");
         filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
                 if (result.data != "") {
                     alertFactory.success('Exito');
                     $scope.procesando = true;
+                    $scope.filetree = [];
+                    $scope.directorio = "";
+                    $scope.timbrar = false;
                 } else {
                     alertFactory.warning('no se pudo realizar');
                 }

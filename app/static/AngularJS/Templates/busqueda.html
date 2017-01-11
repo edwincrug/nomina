@@ -21,8 +21,16 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label class="form-label">Tipo de Nómina:</label>
+                        <select class="form-control" ng-model="filtros.idTipoNomina" ng-options="tipoDeNomina.idTipoNomina as tipoDeNomina.nomTipoNomina for tipoDeNomina in tipoNomina" name="txtTipoContrato" ng-change="" ng-disabled="activarInputTipoNomina">
+                            <option value="">Seleccioné el tipo de nómina</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label class="form-label">Agencia:</label>
-                        <select class="form-control" ng-model="filtros.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(filtros.idTipoEmpresa,filtros.idSucursal);getTipoNomina(filtros.idSucursal)" ng-disabled="activarInputAgencia">
+                        <select class="form-control" ng-model="filtros.idSucursal" ng-options="tipoAgencia.idSucursal as tipoAgencia.nombreSucursal for tipoAgencia in agencias" name="txtTipoContrato" ng-change="cargaTipoDepartamento(filtros.idTipoEmpresa,filtros.idSucursal)" ng-disabled="activarInputAgencia">
                             <option value="">Seleccioné Agencia</option>
                         </select>
                     </div>
@@ -30,16 +38,8 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Departamento:</label>
-                        <select class="form-control" ng-model="filtros.idDepartamento" ng-options="tipoDepartamento.idDepartamento as tipoDepartamento.nombreDepartamento for tipoDepartamento in departamento" name="txtTipoContrato" ng-change="getTipoNomina(filtros.idDepartamento)" ng-disabled="activarInputDepartamento">
+                        <select class="form-control" ng-model="filtros.idDepartamento" ng-options="tipoDepartamento.idDepartamento as tipoDepartamento.nombreDepartamento for tipoDepartamento in departamento" name="txtTipoContrato" ng-change="" ng-disabled="activarInputDepartamento">
                             <option value="">Seleccioné Departamento</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Tipo de Nómina:</label>
-                        <select class="form-control" ng-model="filtros.idTipoNomina" ng-options="tipoDeNomina.idTipoNomina as tipoDeNomina.nomTipoNomina for tipoDeNomina in tipoNomina" name="txtTipoContrato" ng-change="" ng-disabled="activarInputTipoNomina">
-                            <option value="">Seleccioné el tipo de nómina</option>
                         </select>
                     </div>
                 </div>
