@@ -73,11 +73,12 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         //var rutaCarpetaModif = $scope.rutaCarpeta.replace(/\\/gi, "\\\\");
         filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
                 if (result.data != "") {
-                    alertFactory.success('Exito');
+                    alertFactory.success('Se mando a timbrar Carpeta');
                     $scope.procesando = true;
                     $scope.filetree = [];
                     $scope.directorio = "";
                     $scope.timbrar = false;
+                    $scope.rutaCarpeta = ""
                 } else {
                     alertFactory.warning('no se pudo realizar');
                 }
