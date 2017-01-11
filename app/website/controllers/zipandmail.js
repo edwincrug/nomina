@@ -76,27 +76,27 @@ console.log(req.body)//Objeto que almacena la respuesta
     //     }
     // });
 
-    var transporter = nodemailer.createTransport(smtpTransport({
-        host: 'mail.bism.com.mx',
-        port: 25,
+    // var transporter = nodemailer.createTransport(smtpTransport({
+    //     host: 'mail.bism.com.mx',
+    //     port: 25,
+    //     secure: false,
+    //     auth: {
+    //         user: 'falvarado@bism.com.mx',
+    //         pass: 'Fernandoalvarado1'
+    //     },
+    //     tls: { rejectUnauthorized: false }
+    // }));
+
+     var transporter = nodemailer.createTransport(smtpTransport({
+        host: '192.168.20.1',
+        port: 2525,
         secure: false,
         auth: {
-            user: 'falvarado@bism.com.mx',
-            pass: 'Fernandoalvarado1'
+            user: 'grupoandrade.reportes@grupoandrade.com.mx',
+            pass: '12345'
         },
         tls: { rejectUnauthorized: false }
     }));
-
-    //  var transporter = nodemailer.createTransport(smtpTransport({
-    //     host: '192.168.20.1',
-    //     port: 25,
-    //     secure: false,
-    //     // auth: {
-    //     //     user: 'grupoandrade.reportes',
-    //     //     pass: '12345'
-    //     // },
-    //     tls: { rejectUnauthorized: false }
-    // }));
 
     var mailOptions = {
         from: '"Correos de GA" <grupoandrade.reportes@grupoandrade.com.mx>', // sender address 
