@@ -116,6 +116,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
                 }
                 else{
+                    $scope.timbradoPendiente = false;
                         filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
                                 if (result.data != "") {
                                     alertFactory.success('Se mando a timbrar Carpeta');
@@ -128,7 +129,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                                     alertFactory.warning('no se pudo realizar');
                                 }
                         })
-                    alertFactory.error('esperando');
+                    //alertFactory.error('esperando');
                     //alertFactory.success('Se mando a timbrar carpeta');
                 }
             }
