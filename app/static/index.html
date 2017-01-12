@@ -28,7 +28,10 @@
 
 <body ng-app="registrationModule" style="background:#EAEAEA">
     <div id="pnlSideNav" class="sidenav" ng-show="mostrarMenu">
-        <div class="pnlSideTitleMin">GA</div>
+        <div class="pnlSideTitleMin">
+            <p id="siglas">GA</p>
+            <img alt="image" id="logoo" src="/images/logoA.png" style="width:120px; height:60px"/>
+        </div>
         <div id="mainnav-profile">
             <div class="profile-wrap" id="divUserSession">
                 <div class="pad-btm">
@@ -56,7 +59,7 @@
         <div class="panelTopBar"  ng-show="mostrarMenu">
             <div class="pnlBodyBar">
                 <button type="button" class="btn btn-default" onclick="openCloseNav()"><span class="glyphicon glyphicon-menu-hamburger"></span></button>&nbsp;&nbsp;
-                 <img alt="image"  src="/images/logoA.png" style="width:120px; height:60px"/>
+                 
                 <strong> &nbsp;&nbsp; PORTAL DE TIMBRADO</strong>
             </div>
             <div class="pnlBodyBar pull-right" style="margin-right: 10px;font-family:Helvetica; margin-right: 6px;font-size: 15px !important">

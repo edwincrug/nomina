@@ -8,7 +8,9 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.tipoEmpresa = [];
     $scope.timbrar = false;
     $scope.idTipoNomina = 0;
+    $scope.listDocumentosRepetidos = []
     $scope.idEmpresa = 0;
+    $scope.documentosTimbrados =""
     var cronometro
     $scope.mensajePanel = "";
 
@@ -54,12 +56,21 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
             }
         });
     };
-
+    $scope.listValidarDocumentos =[]
     $scope.ruta = function(obj) {
+        $scope.listValidarDocumentos =[]
         $scope.timbrar = true;
         $scope.rutaCarpeta = obj.path;
         var cadena = obj.path;
         $scope.directorio = cadena.substr((cadena.length) - 8, 8)
+        obj.children.forEach(function(arrayDataLot) {
+            $scope.listValidarDocumentos.push({
+                nombreDocumento:arrayDataLot.name
+            })
+        });
+        console.log($scope.listValidarDocumentos)
+
+
         //console.log($scope.directorio)
     }
 
@@ -70,20 +81,60 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
     $scope.realizarTimbrado = function() {
 
-        //var rutaCarpetaModif = $scope.rutaCarpeta.replace(/\\/gi, "\\\\");
-        filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
-                if (result.data != "") {
-                    alertFactory.success('Se mando a timbrar Carpeta');
-                    $scope.procesando = true;
-                    $scope.filetree = [];
-                    $scope.directorio = "";
-                    $scope.timbrar = false;
-                    $scope.rutaCarpeta = ""
-                } else {
-                    alertFactory.warning('no se pudo realizar');
+        filtrosRepository.getValidarDocumentosTimbrados($scope.nombre).then(function(respuesta) {
+            $scope.documentosTimbrados = respuesta.data;
+            if($scope.documentosTimbrados[0].estatusCarpeta ==1){
+                alertFactory.warning('Carpeta ya Timbrada');
+            }
+            else{
+                if($scope.documentosTimbrados[0].estatusCarpeta ==3){
+                    //alertFactory.warning('Carpeta Parcialmente Timbrada');
+                    console.log($scope.documentosTimbrados.length + ' num')
+                    for (var i = 0; i < $scope.documentosTimbrados.length; i++) {
+                        for (var h = 0; h < $scope.listValidarDocumentos.length; h++) {
+                            if($scope.documentosTimbrados[i].NombreRecibo == $scope.listValidarDocumentos[h].nombreDocumento){
+                                console.log('entre if')
+                                $scope.listDocumentosRepetidos.push({
+                                    nombreDocumentoR: $scope.documentosTimbrados[i].NombreRecibo
+                                })
+                            }   
+                        }
+                     }
+                    filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
+                                if (result.data != "") {
+                                    alertFactory.success('Se mando a timbrar Carpeta');
+                                    $scope.procesando = true;
+                                    $scope.filetree = [];
+                                    $scope.directorio = "";
+                                    $scope.timbrar = false;
+                                    $scope.rutaCarpeta = ""
+                                } else {
+                                    alertFactory.warning('no se pudo realizar');
+                                }
+                        });
+                   setTimeout(function(){ $scope.listDocumentosRepetidos = [] }, 5000); 
+
                 }
-            })
-            //alertFactory.error('esperando');
+                else{
+                        filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
+                                if (result.data != "") {
+                                    alertFactory.success('Se mando a timbrar Carpeta');
+                                    $scope.procesando = true;
+                                    $scope.filetree = [];
+                                    $scope.directorio = "";
+                                    $scope.timbrar = false;
+                                    $scope.rutaCarpeta = ""
+                                } else {
+                                    alertFactory.warning('no se pudo realizar');
+                                }
+                        })
+                    alertFactory.error('esperando');
+                    //alertFactory.success('Se mando a timbrar carpeta');
+                }
+            }
+
+        });
+
     }
 
     $scope.getPermisos = function() {

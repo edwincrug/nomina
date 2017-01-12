@@ -46,7 +46,7 @@
                 </div>
             </div>
 <!--             <div class="col-lg-1 "></div>
- -->            <div class="col-lg-4 ">
+ -->        <div class="col-lg-4 ">
                <div class="panel " ng-show="procesando " style="border-color:#004E8C ">
                     <div class="panel-heading " style="background: #004E8C;color: white ">
                             {{mensajePanel}}
@@ -69,6 +69,11 @@
                 </div>
 <!-- <span id="minutos">0</span>:<span id="segundos">0</span><br/> -->
             </div>
+           <div class="col-lg-4 ">
+                <ul ng-repeat="listDocumentosRepetidos in listDocumentosRepetidos">
+                    <li>{{listDocumentosRepetidos.nombreDocumentoR}}</li>
+                </ul>
+           </div>
         </div>
     </div>
     <!-- /div>

@@ -64,8 +64,20 @@ registrationModule.factory('filtrosRepository', function($http) {
                     'Content-Type': 'application/json'
                 }
             });
-        }
+        }, //
 
+        getValidarDocumentosTimbrados: function(nombreNomina) {
+            return $http({
+                url: filtroURL + 'validarDocumentosTimbrados/',
+                method: "GET",
+                params: {
+                    nombreNomina: nombreNomina
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
     };
 
 });
