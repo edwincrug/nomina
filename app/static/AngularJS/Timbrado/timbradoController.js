@@ -18,6 +18,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
         getIPs(function(ip) { console.log(ip); });
         //$scope.carga();
         $scope.yo = false;
+        $scope.cambioNombre = 'Timbrar'
         openCloseNav()
         $scope.getEmpresa(1);
         $scope.getTipoNomina();
@@ -80,7 +81,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     }
 
     $scope.realizarTimbrado = function() {
-
+        $scope.cambioNombre = 'Timbrar'
         filtrosRepository.getValidarDocumentosTimbrados($scope.nombre).then(function(respuesta) {
             $scope.documentosTimbrados = respuesta.data;
             if($scope.documentosTimbrados[0].estatusCarpeta ==1){
@@ -112,11 +113,12 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                                     alertFactory.warning('no se pudo realizar');
                                 }
                         });
-                   setTimeout(function(){ $scope.listDocumentosRepetidos = [] }, 5000); 
+                   setTimeout(function(){ $scope.listDocumentosRepetidos = [] }, 10000); 
 
                 }
                 else{
-                    $scope.timbradoPendiente = false;
+                    $scope.timbradoPendiente = true;
+                    $scope.cambioNombre = 'Timbrando....'
                         filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
                                 if (result.data != "") {
                                     alertFactory.success('Se mando a timbrar Carpeta');
