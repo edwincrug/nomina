@@ -42,14 +42,7 @@ console.log(req.body)//Objeto que almacena la respuesta
         create_zip(ruta + file.nombreRecibo + extension, file.nombreRecibo + extension);
     }); 
 
-
-
     function create_zip(file, name) {
-
-         // fs.unlink(ruta + carpeta + '.zip', function(err) {
-                        // if (err) return console.log(err);
-                   //      console.log('file deleted successfully');
-                   // });
 
         var contentPromise = new JSZip.external.Promise(function(resolve, reject) {
             fs.readFile(file, function(err, data) {
@@ -75,38 +68,16 @@ console.log(req.body)//Objeto que almacena la respuesta
     var nodemailer = require('nodemailer');
     var smtpTransport = require('nodemailer-smtp-transport');
 
-    // var transporter = nodemailer.createTransport(smtpTransport({
-    //     host: '192.168.20.1',
-    //     port: 25,
-    //     secure: false,
-    //     auth: {
-    //         user: 'sistemas',
-    //         pass: 's1st3m4s'
-    //    },
-    //     tls: { rejectUnauthorized: false}
-    //   }));
-
-
-    var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'timbrado.andrade@gmail.com',
-                pass: 'S1ST3M4S'
-            }
-        });
-
-
-    // var transporter = nodemailer.createTransport(smtpTransport({
-    //     host: '192.168.20.1',
-    //     port: 25,
-    //     secure: false,
-    //     auth: {
-    //         user: 'grupoandrade.reportes',
-    //         pass: '12345'
-    //    },
-    //     tls: { rejectUnauthorized: false}
-    //   }));
-
+    var transporter = nodemailer.createTransport(smtpTransport({
+        host: '192.168.20.1',
+        port: 25,
+        secure: false,
+        auth: {
+            user: 'sistemas',
+            pass: 's1st3m4s'
+       },
+        tls: { rejectUnauthorized: false}
+      }));
 
    
     var mailOptions = {
@@ -136,7 +107,10 @@ console.log(req.body)//Objeto que almacena la respuesta
                 return console.error(err);
             }
 
-                  
+            fs.unlink(ruta + carpeta + '.zip', function(err) {
+                // if (err) return console.log(err);
+                 console.log('file deleted successfully');
+            });
             });
         }
 

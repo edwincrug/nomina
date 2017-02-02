@@ -1,4 +1,4 @@
-registrationModule.controller('timbradoController', function($scope, $rootScope, $routeParams, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
+﻿registrationModule.controller('timbradoController', function($scope, $rootScope, $routeParams, alertFactory, timbradoRepository, localStorageService, filtrosRepository, filetreeRepository) {
     $rootScope.mostrarMenu = true;
     $scope.idUsuario = $routeParams.idUsuario
     $scope.procesando = false;
@@ -13,6 +13,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     $scope.documentosTimbrados =""
     var cronometro
     $scope.mensajePanel = "";
+    $scope.cambioNombre = ""
 
     $scope.init = function() {
         getIPs(function(ip) { console.log(ip); });
@@ -28,6 +29,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     }
 
     $scope.getEmpresa = function(idUsuario) {
+        $scope.cambioNombre = 'Timbrar'
         filtrosRepository.getEmpresa(idUsuario).then(function(result) {
             if (result.data.length > 0) {
                 $scope.empresaUsuario = result.data;
@@ -36,6 +38,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     }
 
     $scope.getTipoNomina = function() {
+        $scope.cambioNombre = 'Timbrar'
         $scope.timbrar = false;
         filtrosRepository.getTipoNomina().then(function(result) {
             if (result.data.length > 0) {
@@ -45,6 +48,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     }
 
     $scope.getFileTree = function(idEmpresa, idTipo) {
+        $scope.timbradoPendientes = false;
         $scope.rutaCarpeta = "";
         $scope.nombreCarpeta = "";
         $scope.idTipoNomina = idTipo;
@@ -59,6 +63,8 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
     };
     $scope.listValidarDocumentos =[]
     $scope.ruta = function(obj) {
+        $scope.timbradoPendientes = false;
+        $scope.cambioNombre = 'Timbrar'
         $scope.listValidarDocumentos =[]
         $scope.timbrar = true;
         $scope.rutaCarpeta = obj.path;
@@ -82,7 +88,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
     $scope.realizarTimbrado = function() {
         $scope.cambioNombre = 'Timbrar'
-        filtrosRepository.getValidarDocumentosTimbrados($scope.nombre).then(function(respuesta) {
+        filtrosRepository.getValidarDocumentosTimbrados($scope.nombre,$scope.idEmpresa).then(function(respuesta) {
             $scope.documentosTimbrados = respuesta.data;
             if($scope.documentosTimbrados[0].estatusCarpeta ==1){
                 alertFactory.warning('Carpeta ya Timbrada');
@@ -117,7 +123,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
 
                 }
                 else{
-                    $scope.timbradoPendiente = true;
+                    $scope.timbradoPendientes = true;
                     $scope.cambioNombre = 'Timbrando....'
                         filetreeRepository.getSocket($scope.idEmpresa, $scope.idTipoNomina, $scope.idUsuario, $scope.rutaCarpeta, $scope.nombre).then(function(result) {
                                 if (result.data != "") {
@@ -126,6 +132,7 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                                     $scope.filetree = [];
                                     $scope.directorio = "";
                                     $scope.timbrar = false;
+                                    $scope.timbradoPendientes = true;
                                     $scope.rutaCarpeta = ""
                                 } else {
                                     alertFactory.warning('no se pudo realizar');
@@ -155,20 +162,24 @@ registrationModule.controller('timbradoController', function($scope, $rootScope,
                     if (($scope.datosPendientes[0].timbrados + $scope.datosPendientes[0].timbradoError) == $scope.datosPendientes[0].TotalRecibos) {
                         $scope.mensajePanel = "Último Timbrado...."
                         $scope.timbradoPendiente = false;
+                        $scope.timbradoPendientes = false;
+                        $scope.cambioNombre = 'Timbrar'
                         $scope.procesando = true;
-                        $scope.porcentaje = ($scope.datosPendientes[0].timbrados * 100) / $scope.datosPendientes[0].TotalRecibos
+                        $scope.porcentaje = (($scope.datosPendientes[0].timbrados + $scope.datosPendientes[0].timbradoError) * 100) / $scope.datosPendientes[0].TotalRecibos
                         $scope.mostrarEstado = false;
                     } else {
                         $scope.mensajePanel = "Procesando Timbrado...."
                         $scope.timbradoPendiente = true;
+                        $scope.timbradoPendientes = true;
                         $scope.procesando = true;
                         $scope.mostrarEstado = true;
-                        $scope.porcentaje = ($scope.datosPendientes[0].timbrados * 100) / $scope.datosPendientes[0].TotalRecibos
+                        $scope.porcentaje = (($scope.datosPendientes[0].timbrados + $scope.datosPendientes[0].timbradoError) * 100) / $scope.datosPendientes[0].TotalRecibos
                     }
                 } else {
                     $scope.procesando = false;
                     $scope.yo = true;
                     $scope.timbradoPendiente = false;
+                    $scope.timbradoPendientes = false;
                 }
 
             } else {

@@ -40,7 +40,7 @@
                     </div>
                   
                     <div style="margin-left: 55%; margin-bottom: :15px" ng-show="timbrar" >
-                        Carpeta Seleccionada: {{directorio}}  <button class="btn" style="background: #F66B06; border-color:#F66B06; color:white" ng-click="realizarTimbrado()" ng-disabled="timbradoPendiente">{{cambioNombre}}</button>
+                        Carpeta Seleccionada: {{directorio}}  <button class="btn" style="background: #F66B06; border-color:#F66B06; color:white" ng-click="realizarTimbrado()" ng-disabled="timbradoPendientes">{{cambioNombre}}</button>
                     </div>
                      <div style="color:white; margin-left: 10px" ng-show="timbrar" >.</div> 
                 </div>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div ng-show="mostrarEstado == false">Timbrado Terminado </div>
-                            <div ng-show="mostrarEstado == true">{{datosPendientes[0].timbrados}} <label> xml de  </label> {{documentosTotales}} </div><br/>
+                            <div ng-show="mostrarEstado == true">{{datosPendientes[0].timbrados + datosPendientes[0].timbradoError}} <label> xml de  </label> {{documentosTotales}} </div><br/>
                             <label>Tipo de Nomina:</label> {{TipoDescripcion}} <br/>
                             <!-- <label>Tiempo transcurrido: </label> <span id="minutos">0</span>:<span id="segundos">0</span><br/> -->
                             <label>Documentos timbrados: </label> {{DocumentosAceptados}}<br/>

@@ -66,12 +66,13 @@ registrationModule.factory('filtrosRepository', function($http) {
             });
         }, //
 
-        getValidarDocumentosTimbrados: function(nombreNomina) {
+        getValidarDocumentosTimbrados: function(nombreNomina, idEmpresa) {
             return $http({
                 url: filtroURL + 'validarDocumentosTimbrados/',
                 method: "GET",
                 params: {
-                    nombreNomina: nombreNomina
+                    nombreNomina: nombreNomina,
+		idEmpresa:idEmpresa
                 },
                 headers: {
                     'Content-Type': 'application/json'
