@@ -65,14 +65,15 @@ registrationModule.factory('filtrosRepository', function($http) {
                 }
             });
         }, //
-
-        getValidarDocumentosTimbrados: function(nombreNomina, idEmpresa) {
+// agrege este paramerametro
+        getValidarDocumentosTimbrados: function(nombreNomina, idEmpresa,tipoNomina) {
             return $http({
                 url: filtroURL + 'validarDocumentosTimbrados/',
                 method: "GET",
                 params: {
                     nombreNomina: nombreNomina,
-		idEmpresa:idEmpresa
+		idEmpresa:idEmpresa,
+        tipoNomina:tipoNomina
                 },
                 headers: {
                     'Content-Type': 'application/json'

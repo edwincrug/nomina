@@ -12,6 +12,8 @@
     $scope.idEmpresa = 0;
     $scope.documentosTimbrados =""
     var cronometro
+    // agrege este paramerametro
+    $scope.idTipoNominaSeleccion = 0;
     $scope.mensajePanel = "";
     $scope.cambioNombre = ""
 
@@ -23,8 +25,6 @@
         openCloseNav()
         $scope.getEmpresa(1);
         $scope.getTipoNomina();
-        //console.log('Estoy en timbrado', $routeParams.idPerfil)
-            //$scope.getPermisos();
         setInterval(function() { $scope.getPermisos(); }, 1500);
     }
 
@@ -48,10 +48,13 @@
     }
 
     $scope.getFileTree = function(idEmpresa, idTipo) {
+        console.log(idTipo + 'tipo nomina')
         $scope.timbradoPendientes = false;
         $scope.rutaCarpeta = "";
         $scope.nombreCarpeta = "";
         $scope.idTipoNomina = idTipo;
+        // agrege este paramerametro
+        $scope.idTipoNominaSeleccion = $scope.idTipoNomina;
         $scope.idEmpresa = idEmpresa;
         $scope.timbrar = false;
         filetreeRepository.getFileTree(idEmpresa, idTipo).then(function(result) {
@@ -88,8 +91,13 @@
 
     $scope.realizarTimbrado = function() {
         $scope.cambioNombre = 'Timbrar'
-        filtrosRepository.getValidarDocumentosTimbrados($scope.nombre,$scope.idEmpresa).then(function(respuesta) {
+        //console.log($scope.nombre +' yo '+ $scope.idEmpresa +' tu '+ $scope.idTipoNominaSeleccion)
+        //console.log()
+        // agrege este paramerametro
+        filtrosRepository.getValidarDocumentosTimbrados($scope.nombre,$scope.idEmpresa,$scope.idTipoNominaSeleccion).then(function(respuesta) {
+
             $scope.documentosTimbrados = respuesta.data;
+            console.log($scope.documentosTimbrados[0].estatusCarpeta + ' respuesta')
             if($scope.documentosTimbrados[0].estatusCarpeta ==1){
                 alertFactory.warning('Carpeta ya Timbrada');
             }

@@ -86,14 +86,15 @@ Filtros.prototype.get_tipoNomina = function (req, res, next) {
             result: result
         });
     });
-};
+};// agrege este paramerametro
 
 Filtros.prototype.get_validarDocumentosTimbrados = function (req, res, next) {
 
     var self = this;
 
     var params = [{name: 'nombreNomina',value: req.query.nombreNomina ,type: self.model.types.STRING},
-                    {name: 'idEmpresa',value: req.query.idEmpresa ,type: self.model.types.INT}];
+                    {name: 'idEmpresa',value: req.query.idEmpresa ,type: self.model.types.INT},
+                    {name: 'tipoNomina',value: req.query.tipoNomina ,type: self.model.types.INT}];
 
     this.model.query('SEL_DOCUMENTOS_TIMBRADOS_SP', params, function (error, result) {
         self.view.expositor(res, {
